@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
 const apiRoutes = require('./controllers')
+const sequelize = require('./config/connection')
 require('dotenv').config()
 
 const app = express()
@@ -16,6 +17,7 @@ app.get('*', (req, res) => {
 })
 
 const PORT = process.env.PORT
-app.listen(PORT, () => {
-    console.log(`Server now listening on PORT : ${PORT}`)
+
+sequelize.sync({force: true }).then(() => {
+    app.listen(PORT, () => console.log(`Now listening on port ${PORT}`))
 })
