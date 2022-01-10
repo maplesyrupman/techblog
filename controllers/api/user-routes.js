@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
             const token = generateAccessToken(newUser.username)
             res.status(200).json({
                 username: newUser.username,
+                id: newUser.id,
                 token
             })
         })
@@ -37,7 +38,7 @@ router.post('/login', (rew, res) => {
 
             const token = generateAccessToken(userData.username)
             res.status(200).json({
-                username: userData.username,
+                username, id: userData,
                 token
             })
         })
