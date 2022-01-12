@@ -36,7 +36,7 @@ export default function LoginForm() {
                     <input type='password' name='password' defaultValue={password} onChange={handleChange} className="form-input"/>
                 </div>
                 <div className="flex">
-                    <button type='submit' className="mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
+                    <button type='submit' className="mx-auto bg-emerald-100 hover:bg-green-200 text-white font-bold py-2 px-4 rounded">Login</button>
                 </div>
             </form>
         </div>
