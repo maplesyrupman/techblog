@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+
+.nav-link {
+    @apply mx-2 font-mono text-3xl;
+}
+
+.form-field {
+    @apply flex flex-col my-2;
+}
+
+.form-input {
+    @apply outline outline-1 rounded;
+}
+
+body {
+    background-color: #001B2E;
+    color:#001B2E;
+}
+
+@tailwind utilities;
