@@ -1,19 +1,19 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const commentSchema = require('./Comment');
 
 const postSchema = new Schema(
   {
-    postTitle: {
+    title: {
         type: String,
         required: 'Post must include a title',
         minlength: 1,
         maxlength: 280
     },
-    postPreamble: {
+    preamble: {
         type: String,
         maxlength: 512
     },
-    postText: {
+    text: {
       type: String,
       required: 'Post body cannot be blank',
       minlength: 1,
@@ -24,8 +24,12 @@ const postSchema = new Schema(
       default: Date.now,
       get: timestamp => dateFormat(timestamp)
     },
-    username: {
+    author: {
       type: String,
+      required: true
+    },
+    authorId: {
+      type: Schema.Types.ObjectId,
       required: true
     },
     comments: [commentSchema],

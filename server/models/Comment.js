@@ -7,9 +7,9 @@ const commentSchema = new Schema(
             required: true,
             maxlength: 280
         },
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
+        username: {
+            type: String,
+            required: true
         },
         createdAt: {
             type: Date,

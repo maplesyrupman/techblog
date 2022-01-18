@@ -9,18 +9,17 @@ const typeDefs = gql`
     type User {
         username: String
         email: String
-        password: String
         posts: [Post]
         followers: [User]
         following: [User]
     }
 
     type Post {
-        postTitle: String
-        postPreamble: String
-        postText: String
+        title: String
+        preamble: String
+        text: String
         createdAt: String
-        username: String
+        author: String
         comments: [comment]
         likes: [ID]
     }
@@ -32,14 +31,21 @@ const typeDefs = gql`
 
     }
 
-    type Mutation {
-        users: [User]
-    }
-
     type Query {
-        addUser(username: String!, email: String!, password: String!): Auth
+        users: [User]
+        user(username: String!): User
+        me: User
+        post(_id: ID!): Post
     }
 
+    type Mutation {
+        addUser(username: String!, email: String!, password: String!): Auth
+        login(username: String!, password: String!): Auth
+        addPost(author: ID!, title: String!, preamble: String!, text: String!)
+        likePost(userId: ID!, postId: ID!)
+        addComment(userId: ID!, postId: ID!, commentBody: String!)
+        follow(followedId: ID!, followerId: ID!)
+    }
 `
 
 module.exports = typeDefs 
