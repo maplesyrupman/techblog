@@ -8,28 +8,29 @@ const resolvers = {
     },
 
     Mutation: {
-        addUser: async (parent, args) => {
+        signup: async (parent, args) => {
             const user = await User.create(args)
             const token = signToken(user)
+            console.log('made it this far')
 
             return { token, user }
         },
 
-        login: async (parent, { username, password }) => {
+        login: async (parent, { email, password }) => {
             const user =
-                await User.findOne({ username })
+                await User.findOne({ email })
                     .populate('followers')
                     .populate('following')
                     .populate('posts')
 
             if (!user) {
-                throw new AuthenticationError('Incorrect username or password')
+                throw new AuthenticationError('Incorrect email or password')
             }
 
             const correctPw = await user.correctPassword(password)
 
             if (!correctPw) {
-                throw new AuthenticationError('Incorrect username or password')
+                throw new AuthenticationError('Incorrect email or password')
             }
 
             const token = signToken(user)

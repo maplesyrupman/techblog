@@ -16,7 +16,7 @@ const Layout = () => {
                             <Link to='/dashboard'>Dashboard</Link>
                         </li>
                         <li className='nav-link'>
-                            <Link to='/login'>Login</Link>
+                            <Link to='/logup'>Login</Link>
                         </li>
                     </ul>
                 </nav>
