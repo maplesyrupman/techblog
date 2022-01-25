@@ -38,14 +38,14 @@ const resolvers = {
         },
 
         addPost: async (parent, args, context) => {
-            if (!context.user) {
-                throw new AuthenticationError('Must be logged in to submit a post.')
-            }
+            // if (!context.user) {
+            //     throw new AuthenticationError('Must be logged in to submit a post.')
+            // }
 
-            const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
+            const post = await Post.create({ ...args, author: args.author, authorId: args.authorId})
 
             await User.findByIdAndUpdate(
-                context.user._id,
+                {_id: args.authorId},
                 { $push: {posts: post._id }},
                 { new: true }
             )
@@ -53,9 +53,9 @@ const resolvers = {
         },
 
         addComment: async (parent, { postId, commentBody }, context) => {
-            if (!context.user) {
-                throw new AuthenticationError('Must be logged in to comment.')
-            }
+            // if (!context.user) {
+            //     throw new AuthenticationError('Must be logged in to comment.')
+            // }
 
             const updatedPost = await Post.findOneAndUpdate(
                 { _id: postId },
@@ -67,9 +67,9 @@ const resolvers = {
         },
 
         likePost: async (parent, {postId}, context) => {
-            if (!context.user) {
-                throw new AuthenticationError('Must be logged in to like a post.')
-            }
+            // if (!context.user) {
+            //     throw new AuthenticationError('Must be logged in to like a post.')
+            // }
 
             const likedPost = await Post.findByIdAndUpdate(
                 postId,
@@ -82,9 +82,9 @@ const resolvers = {
         },
 
         follow: async (parent, {followedId}, context) => {
-            if (!context.user) {
-                throw new AuthenticationError('Must be logged in to follow somebody.')
-            }
+            // if (!context.user) {
+            //     throw new AuthenticationError('Must be logged in to follow somebody.')
+            // }
 
             const followedUser = await User.findByIdAndUpdate(
                 followedId,
