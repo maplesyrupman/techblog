@@ -1,5 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 const commentSchema = require('./Comment');
+const {format} = require('date-fns')
 
 const postSchema = new Schema(
   {
@@ -21,7 +22,8 @@ const postSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now
+      default: Date.now,
+      get: date => format(new Date(date), "MMMM do, yyyy")
     },
     author: {
       type: String,

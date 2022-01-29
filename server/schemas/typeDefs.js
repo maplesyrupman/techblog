@@ -31,7 +31,6 @@ const typeDefs = gql`
         commentBody: String
         username: String
         createdAt: String
-
     }
 
     type Query {
@@ -46,7 +45,7 @@ const typeDefs = gql`
         signup(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
 
-        addPost(title: String!, preamble: String!, text: String!): Post
+        submitPost(title: String!, preamble: String!, text: String!): Post
         likePost(postId: ID!): Post
         addComment(postId: ID!, commentBody: String!): Post
         follow(followedId: ID!, followerId: ID!): User

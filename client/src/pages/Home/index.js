@@ -1,4 +1,6 @@
 import PostThumbnail from '../../components/PostThumbnail'
+import { QUERY_POSTS } from '../../utils/queries'
+import { useQuery } from '@apollo/client'
 
 const testPosts = [
     {
@@ -22,9 +24,23 @@ const testPosts = [
 ]
 
 export default function Home() {
+    const {data, loading} = useQuery(QUERY_POSTS)
+    const {posts} = data || {}
+    if (data) {
+        console.log(data)
+    }
+
+    if (loading) {
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
+
     return (
         <div className='py-12'>
-            {testPosts.map(post => <PostThumbnail postData={post} key={post.title}></PostThumbnail>)}
+            {posts.map(post => <PostThumbnail postData={post} key={post._id}></PostThumbnail>)}
         </div>
     )
 }

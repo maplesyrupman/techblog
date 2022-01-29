@@ -8,6 +8,10 @@ const resolvers = {
             return await User.find({})
         },
 
+        me: async (parent, args, context) => {
+            return await User.findById(context.user._id).populate('posts')
+        },
+
         post: async (parent, args) => {
             return await Post.findById(args.postId)
         },
@@ -47,7 +51,7 @@ const resolvers = {
             return { token, user }
         },
 
-        addPost: async (parent, args, context) => {
+        submitPost: async (parent, args, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to submit a post.')
             }
