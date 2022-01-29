@@ -11,18 +11,17 @@ const postSchema = new Schema(
     },
     preamble: {
         type: String,
-        maxlength: 512
+        maxlength: 1028
     },
     text: {
       type: String,
       required: 'Post body cannot be blank',
       minlength: 1,
-      maxlength: 280
+      maxlength: 1000000
     },
     createdAt: {
       type: Date,
-      default: Date.now,
-      get: timestamp => dateFormat(timestamp)
+      default: Date.now
     },
     author: {
       type: String,

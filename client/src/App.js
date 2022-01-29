@@ -9,6 +9,7 @@ import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import WritePost from './pages/WritePost'
 import Logup from './pages/Logup'
+import SinglePost from './pages/SinglePost';
 
 const httpLink = createHttpLink({
   uri: 'http://localhost:3007/graphql'
@@ -36,6 +37,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
               <Route index element={<Dashboard />} />
               <Route path='edit/:postId' element={<WritePost />} />
