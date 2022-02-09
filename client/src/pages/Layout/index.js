@@ -1,5 +1,6 @@
 import { Outlet, Link } from 'react-router-dom'
 import Auth from '../../utils/auth'
+import {FaFileAlt} from 'react-icons/fa'
 
 const Layout = () => {
     function logout() {
@@ -11,7 +12,7 @@ const Layout = () => {
             <div className='p-5'>
                 <nav className=' p-6 flex flex-row justify-between bg-main-light rounded-full'>
                     <div className='flex flex-row items-end min-h-min'>
-                        <div className='font-mono text-7xl'>TMAI</div>
+                        <div className='font-mono text-7xl whitespace-nowrap'><FaFileAlt className='inline' />InfoShare</div>
                     </div>
                     <ul className='flex flex-row items-end text-secondary'>
                         <li className='nav-link'>
