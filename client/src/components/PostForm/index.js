@@ -19,7 +19,7 @@ export default function PostForm() {
                 setPostState({ ...postState, preamble: e.target.value })
                 break
             case 'text':
-                setPostState({ ...postState, text: e.target.value })
+                setPostState({ ...postState, text: e.target.value.split('\n') })
                 break
             default:
                 break

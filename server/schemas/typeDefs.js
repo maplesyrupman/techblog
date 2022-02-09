@@ -19,7 +19,7 @@ const typeDefs = gql`
         _id: ID
         title: String
         preamble: String
-        text: String
+        text: [String]
         createdAt: String
         author: String
         authorId: ID
@@ -46,7 +46,7 @@ const typeDefs = gql`
         signup(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
 
-        submitPost(title: String!, preamble: String!, text: String!): Post
+        submitPost(title: String!, preamble: String!, text: [String]!): Post
         likePost(postId: ID!): Post
         addComment(postId: ID!, commentBody: String!): Post
         likeDislike(postId: ID!, isLike: Boolean!): Post

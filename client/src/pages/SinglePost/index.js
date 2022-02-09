@@ -10,6 +10,14 @@ export default function SinglePost() {
     })
     const post = data?.post || {}
 
+    function parsePostBody(section) {
+        if (section[0] === '#') {
+            return 'subtitle'
+        } else {
+            return 'paragraph'
+        }
+    }
+
     if (loading) {
         return (
             <div>
@@ -30,7 +38,7 @@ export default function SinglePost() {
                 </div>
                 <div className="p-6 bg-tertiary rounded-b-lg">
                     <p className="text-gray-700 text-base mb-4">
-                        {post.text}
+                        {post.text.map(parsePostBody)}
                     </p>
                 </div>
                 <div className='border-2 w-full'>

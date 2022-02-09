@@ -14,12 +14,14 @@ const postSchema = new Schema(
       type: String,
       maxlength: 1028
     },
-    text: {
-      type: String,
-      required: 'Post body cannot be blank',
-      minlength: 1,
-      maxlength: 1000000
-    },
+    text: [
+      {
+        type: String,
+        required: 'Post body cannot be blank',
+        minlength: 1,
+        maxlength: 1000000
+      }
+    ],
     createdAt: {
       type: Date,
       default: Date.now,
