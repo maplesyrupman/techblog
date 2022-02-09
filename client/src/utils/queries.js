@@ -26,9 +26,8 @@ export const QUERY_SINGLE_POST = gql`
                 username
                 createdAt
             }
-            likes {
-                username
-            }
+            likeCount
+            dislikeCount
         }
     }
 `
@@ -46,9 +45,8 @@ export const QUERY_POSTS = gql`
             comments {
                 commentBody
             }
-            likes {
-                username
-            }
+            likeCount
+            dislikeCount
         }
     }
 `

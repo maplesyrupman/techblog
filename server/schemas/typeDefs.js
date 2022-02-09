@@ -24,7 +24,8 @@ const typeDefs = gql`
         author: String
         authorId: ID
         comments: [comment]
-        likes: [User]
+        likeCount: Int
+        dislikeCount: Int
     }
 
     type comment {

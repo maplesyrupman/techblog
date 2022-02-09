@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
-import {useQuery} from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { QUERY_SINGLE_POST } from '../../utils/queries'
 import CommentSection from '../../components/CommentSection'
 
 export default function SinglePost() {
-    const {postId} = useParams()
-    const {loading, data} = useQuery(QUERY_SINGLE_POST, {
-        variables: {postId: postId}
+    const { postId } = useParams()
+    const { loading, data } = useQuery(QUERY_SINGLE_POST, {
+        variables: { postId: postId }
     })
     const post = data?.post || {}
 
@@ -24,7 +24,7 @@ export default function SinglePost() {
                     <h5 className="text-secondary text-3xl font-medium font-mono">{post.title}</h5>
                     <p className="align-baseline">
                         Posted by
-                        <span> {post.author} </span> 
+                        <span> {post.author} </span>
                         on {post.createdAt}
                     </p>
                 </div>
@@ -33,9 +33,9 @@ export default function SinglePost() {
                         {post.text}
                     </p>
                 </div>
-            </div>
-            <div className='border-2 w-1/2'>
-                <CommentSection comments={post.comments} likeCount={post.likes.length} />
+                <div className='border-2 w-full'>
+                    <CommentSection comments={post.comments} likeCount={post.likeCount} dislikeCount={post.dislikeCount} postId={post._id} />
+                </div>
             </div>
         </div>
     )
