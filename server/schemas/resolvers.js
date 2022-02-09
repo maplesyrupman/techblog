@@ -57,11 +57,11 @@ const resolvers = {
             }
             console.log(context.user)
 
-            const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id})
+            const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
 
             await User.findByIdAndUpdate(
                 context.user._id,
-                { $push: {posts: post._id }},
+                { $push: { posts: post._id } },
                 { new: true }
             )
             return post
@@ -81,35 +81,49 @@ const resolvers = {
             return updatedPost
         },
 
-        likePost: async (parent, {postId}, context) => {
+        likeDislike: async (parent, { postId, isLike }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to like a post.')
             }
+            let post
 
-            const likedPost = await Post.findByIdAndUpdate(
-                postId,
-                { $addToSet: { likes: context.user._id }},
-                { new: true }
-            )
-
-            return likedPost
-        
+            if (isLike) {
+                post = await Post.findByIdAndUpdate(
+                    postId,
+                    { 
+                        $addToSet: { likes: context.user._id },
+                        $pull: { dislikes: context.user._id}
+                    },
+                    { new: true }
+                )
+            } else {
+                post = await Post.findByIdAndUpdate(
+                    postId,
+                    { 
+                        $addToSet: { dislikes: context.user._id},
+                        $pull: { likes: context.user._id}
+                    },
+                    {new: true}
+                )
+            }
+            
+            return post
         },
 
-        follow: async (parent, {followedId}, context) => {
+        follow: async (parent, { followedId }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to follow somebody.')
             }
 
             const followedUser = await User.findByIdAndUpdate(
                 followedId,
-                { $addToSet: { followers: context.user._id }},
+                { $addToSet: { followers: context.user._id } },
                 { new: true }
             )
 
             const followingUser = await User.findByIdAndUpdate(
                 context.user._id,
-                { $addToSet: { following: followedId }},
+                { $addToSet: { following: followedId } },
                 { new: true }
             )
 

@@ -49,6 +49,7 @@ const typeDefs = gql`
         submitPost(title: String!, preamble: String!, text: String!): Post
         likePost(postId: ID!): Post
         addComment(postId: ID!, commentBody: String!): Post
+        likeDislike(postId: ID!, isLike: Boolean!): Post
         follow(followedId: ID!, followerId: ID!): User
     }
 `

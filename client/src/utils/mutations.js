@@ -37,6 +37,7 @@ export const SUBMIT_POST = gql`
 export const ADD_COMMENT = gql`
     mutation addComment($postId: ID!, $commentBody: String!) {
         addComment(postId: $postId, commentBody: $commentBody) {
+        _id
         title
         preamble
         text
@@ -48,5 +49,15 @@ export const ADD_COMMENT = gql`
             username
         }
         } 
+    }
+`
+
+export const LIKE_DISLIKE = gql`
+    mutation addLike($postId: ID!, $isLike: Boolean!) {
+        likeDislike(postId: $postId, isLike: $isLike) {
+        _id
+        likeCount
+        dislikeCount
+        }
     }
 `

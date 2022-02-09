@@ -4,18 +4,14 @@ import Comment from '../Comment'
 
 import { useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { ADD_COMMENT } from '../../utils/mutations'
-import { QUERY_SINGLE_POST } from '../../utils/queries'
+import { ADD_COMMENT, LIKE_DISLIKE } from '../../utils/mutations'
+
 
 export default function CommentSection({ comments, likeCount, dislikeCount, postId }) {
 
     const [comment, setComment] = useState('')
-
-    const [addComment] = useMutation(ADD_COMMENT, {
-        onCompleted() {
-            this.refetchQueries()
-        }
-    })
+    const [addComment] = useMutation(ADD_COMMENT)
+    const [likeDislike] = useMutation(LIKE_DISLIKE)
 
     function handleChange(e) {
         setComment(e.target.value)
@@ -28,7 +24,11 @@ export default function CommentSection({ comments, likeCount, dislikeCount, post
         }
         addComment({variables: {postId, commentBody: comment}})
         e.target.reset()
-        this.forceUpdate()
+    }
+
+    function handleLikeDislike(e) {
+        const isLike = e.currentTarget.dataset.value == 'like' ? true : false
+        likeDislike({variables: {postId, isLike}})
     }
 
     return (
@@ -39,12 +39,22 @@ export default function CommentSection({ comments, likeCount, dislikeCount, post
                         {likeCount} Likes
                     </span>
                     <span>
-                        0 Dislikes
+                        {dislikeCount} Dislikes
                     </span>
                     {Auth.loggedIn() && (
-                        <div className='inline-flex'>
-                            <FaArrowUp className='mx-1' />
-                            <FaArrowDown className='mx-1' />
+                        <div 
+                        className='inline-flex'
+                        >
+                            <FaArrowUp 
+                            className='mx-1 hover:cursor-pointer hover' 
+                            data-value='like'
+                            onClick={handleLikeDislike}
+                            />
+                            <FaArrowDown 
+                            className='mx-1 hover:cursor-pointer'
+                            data-value='dislike'
+                            onClick={handleLikeDislike}
+                            />
                         </div>
                     )}
                 </div>
