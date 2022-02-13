@@ -10,11 +10,19 @@ export default function SinglePost() {
     })
     const post = data?.post || {}
 
-    function parsePostBody(section) {
+    function parsePostBody(section, key) {
         if (section[0] === '#') {
-            return 'subtitle'
+            return (
+                <h3 className='text-lg font-bold' key={key}>
+                    {section}
+                </h3>
+            )
         } else {
-            return 'paragraph'
+            return (
+                <p className='text-md my-2 text-left' key={key}>
+                    {section}
+                </p>
+            )
         }
     }
 
@@ -37,9 +45,9 @@ export default function SinglePost() {
                     </p>
                 </div>
                 <div className="p-6 bg-tertiary rounded-b-lg">
-                    <p className="text-gray-700 text-base mb-4">
+                    <div className="text-gray-700 text-base mb-4">
                         {post.text.map(parsePostBody)}
-                    </p>
+                    </div>
                 </div>
                 <div className='border-2 w-full'>
                     <CommentSection comments={post.comments} likeCount={post.likeCount} dislikeCount={post.dislikeCount} postId={post._id} />
