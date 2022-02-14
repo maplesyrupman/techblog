@@ -2,9 +2,10 @@
   "name": "tech-blog",
   "version": "1.0.0",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "concurrently \"cd server && npm start \" \"cd client && npm start\""
+    "develop": "concurrently \"cd server && npm start \" \"cd client && npm start\"",
+    "start":"cd server && node server.js"
   },
   "repository": {
     "type": "git",
