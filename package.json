@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/maplesyrupman/techblog/issues"
   },
-  "homepage": "https://github.com/maplesyrupman/techblog#readme",
+  "homepage": "https://info-share.herokuapp.com",
   "dependencies": {
     "concurrently": "^7.0.0"
   },
