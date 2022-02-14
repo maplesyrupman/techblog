@@ -12,7 +12,7 @@ import Logup from './pages/Logup'
 import SinglePost from './pages/SinglePost';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3007/graphql'
+  uri: '/graphql'
 })
 
 const authLink = setContext((_, { headers }) => {
