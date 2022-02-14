@@ -22,5 +22,8 @@
   "homepage": "https://github.com/maplesyrupman/techblog#readme",
   "dependencies": {
     "concurrently": "^7.0.0"
+  },
+  "engines": {
+    "node": "14.17.5"
   }
 }
