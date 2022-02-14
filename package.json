@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "develop": "concurrently \"cd server && npm start \" \"cd client && npm start\"",
-    "start":"cd server && node server.js"
+    "start":"cd server && node server.js",
+    "install":"cd server && npm ci && cd ../client && npm ci"
   },
   "repository": {
     "type": "git",
