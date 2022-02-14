@@ -22,5 +22,8 @@
   "homepage": "https://info-share.herokuapp.com",
   "dependencies": {
     "concurrently": "^7.0.0"
+  },
+  "engines": {
+    "node": "14.17.5"
   }
 }
