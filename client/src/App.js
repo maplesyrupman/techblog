@@ -41,7 +41,7 @@ function App() {
             <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
               <Route index element={<Dashboard />} />
-              <Route path='edit/:postId' element={<EditPost />} />
+              {/* <Route path='edit/:postId' element={<EditPost />} /> */}
               <Route path='new' element={<WritePost />} />
             </Route>
             <Route path='logup' element={<Logup />} />

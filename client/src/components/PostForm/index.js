@@ -4,13 +4,9 @@ import { SUBMIT_POST } from "../../utils/mutations"
 
 import Tag from "../Tag"
 
-export default function PostForm({isEdit, post}) {
-    const [postState, setPostState] = useState({ title: '', preamble: '', text: '', tags: new Set(post.tags) })
+export default function PostForm() {
+    const [postState, setPostState] = useState({ title: '', preamble: '', text: '', tags: new Set() })
     const [currentTag, setCurrentTag] = useState('')
-
-    if (isEdit) {
-        console.log(post)
-    }
 
     const [submitPost] = useMutation(SUBMIT_POST)
 
@@ -34,12 +30,9 @@ export default function PostForm({isEdit, post}) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        if (isEdit) {
-            console.log(postState)
-        } else {
-            submitPost({ variables: { ...postState } })
-            window.location.replace('/dashboard')
-        }
+        submitPost({ variables: { ...postState } })
+        window.location.replace('/dashboard')
+
     }
 
     function handleTag(e) {
@@ -63,7 +56,6 @@ export default function PostForm({isEdit, post}) {
                         name='title'
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
                         onChange={handleChange}
-                        defaultValue={isEdit ? post.title : ''}
                     />
                 </div>
                 <div className="flex flex-col">
@@ -73,7 +65,6 @@ export default function PostForm({isEdit, post}) {
                         name='preamble'
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
                         onChange={handleChange}
-                        defaultValue={isEdit ? post.preamble : ''}
                     />
                 </div>
                 <div className="flex flex-col">
@@ -83,7 +74,6 @@ export default function PostForm({isEdit, post}) {
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame resize-none"
                         onChange={handleChange}
                         rows={21}
-                        defaultValue={isEdit ? post.text.join('\n') : ''}
                     />
                 </div>
                 <div className="grid grid-cols-5">
@@ -95,8 +85,8 @@ export default function PostForm({isEdit, post}) {
                             onChange={handleChange}
                         />
                         <button
-                        type="button"
-                        onClick={handleTag}
+                            type="button"
+                            onClick={handleTag}
                         >
                             Add
                         </button>
@@ -111,7 +101,7 @@ export default function PostForm({isEdit, post}) {
                     <button
                         className="bg-secondary hover:bg-flame text-white font-bold py-2 px-4 rounded wrap-nowrap min-w-max"
                     >
-                        {isEdit ? 'Save' : 'Post'}
+                        Post
                     </button>
                 </div>
             </form>

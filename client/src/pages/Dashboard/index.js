@@ -12,7 +12,7 @@ export default function Dashboard() {
             <div className='grid grid-cols-12 gap-4'>
                 <div className="col-span-7 flex flex-col py-2">
                     {posts && posts.map(post => (
-                        <Link to={`/dashboard/edit/${post._id}`} key={post.title} className="w-full mx-auto">
+                        <Link to={`/post/${post._id}`} key={post.title} className="w-full mx-auto">
                             <button type='button' className="px-10 py-1 my-1 border-2 rounded text-left py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full">
                                 {post.title}
                             </button>
