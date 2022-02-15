@@ -8,6 +8,7 @@ import Layout from './pages/Layout'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import WritePost from './pages/WritePost'
+import EditPost from './pages/EditPost'
 import Logup from './pages/Logup'
 import SinglePost from './pages/SinglePost';
 
@@ -40,7 +41,7 @@ function App() {
             <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
               <Route index element={<Dashboard />} />
-              <Route path='edit/:postId' element={<WritePost />} />
+              <Route path='edit/:postId' element={<EditPost />} />
               <Route path='new' element={<WritePost />} />
             </Route>
             <Route path='logup' element={<Logup />} />

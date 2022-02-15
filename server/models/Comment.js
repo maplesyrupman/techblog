@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose')
+const { format } = require('date-fns')
 
 const commentSchema = new Schema(
     {
@@ -14,6 +15,7 @@ const commentSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
+            get: date => format(new Date(date), "d/LLL/y")
         }
     },
     {

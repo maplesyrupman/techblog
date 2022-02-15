@@ -13,8 +13,8 @@ export default function SinglePost() {
     function parsePostBody(section, key) {
         if (section[0] === '#') {
             return (
-                <h3 className='text-lg font-bold' key={key}>
-                    {section}
+                <h3 className='text-lg font-bold text-left' key={key}>
+                    {section.substring(1)}
                 </h3>
             )
         } else {
@@ -36,12 +36,13 @@ export default function SinglePost() {
     return (
         <div className="flex flex-col items-center py-10 text-secondary">
             <div className="block rounded-lg lg:w-7/12 text-center">
-                <div className="py-3 px-6 rounded-t-lg bg-main-light flex items-end justify-between">
+                <div className="py-3 px-6 rounded-t-lg bg-main-light">
                     <h5 className="text-secondary text-3xl font-medium font-mono">{post.title}</h5>
                     <p className="align-baseline">
-                        Posted by
-                        <span> {post.author} </span>
-                        on {post.createdAt}
+                        By {post.author}
+                    </p>
+                    <p>
+                        {post.createdAt}
                     </p>
                 </div>
                 <div className="p-6 bg-tertiary rounded-b-lg">

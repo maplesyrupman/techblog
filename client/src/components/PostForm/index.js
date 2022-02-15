@@ -1,15 +1,16 @@
-import { useParams } from "react-router-dom"
 import { useState } from "react"
 import { useMutation } from "@apollo/client"
 import { SUBMIT_POST } from "../../utils/mutations"
 
 import Tag from "../Tag"
 
-export default function PostForm() {
-    const { postId } = useParams()
-    const isEdit = postId ? true : false
-    const [postState, setPostState] = useState({ title: '', preamble: '', text: '', tags: new Set() })
+export default function PostForm({isEdit, post}) {
+    const [postState, setPostState] = useState({ title: '', preamble: '', text: '', tags: new Set(post.tags) })
     const [currentTag, setCurrentTag] = useState('')
+
+    if (isEdit) {
+        console.log(post)
+    }
 
     const [submitPost] = useMutation(SUBMIT_POST)
 
@@ -44,7 +45,7 @@ export default function PostForm() {
     function handleTag(e) {
         e.preventDefault()
         if (currentTag) {
-            postState.tags.add(currentTag)
+            setPostState(...postState, [...postState.tags, currentTag])
             setCurrentTag('')
         }
     }
@@ -62,6 +63,7 @@ export default function PostForm() {
                         name='title'
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
                         onChange={handleChange}
+                        defaultValue={isEdit ? post.title : ''}
                     />
                 </div>
                 <div className="flex flex-col">
@@ -71,6 +73,7 @@ export default function PostForm() {
                         name='preamble'
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
                         onChange={handleChange}
+                        defaultValue={isEdit ? post.preamble : ''}
                     />
                 </div>
                 <div className="flex flex-col">
@@ -80,6 +83,7 @@ export default function PostForm() {
                         className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame resize-none"
                         onChange={handleChange}
                         rows={21}
+                        defaultValue={isEdit ? post.text.join('\n') : ''}
                     />
                 </div>
                 <div className="grid grid-cols-5">
