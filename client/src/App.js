@@ -11,6 +11,7 @@ import WritePost from './pages/WritePost'
 import EditPost from './pages/EditPost'
 import Logup from './pages/Logup'
 import SinglePost from './pages/SinglePost';
+import SearchResults from './pages/SearchResults';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -44,6 +45,7 @@ function App() {
               {/* <Route path='edit/:postId' element={<EditPost />} /> */}
               <Route path='new' element={<WritePost />} />
             </Route>
+            <Route path='search/:search' element={<SearchResults />} />
             <Route path='logup' element={<Logup />} />
           </Route>
         </Routes>
