@@ -6,6 +6,7 @@ import { ME } from "../../utils/queries"
 export default function Dashboard() {
     const {data, loading} = useQuery(ME)
     const {posts} = data?.me || []
+    console.log(posts)
 
     return (
         <div className="border-2 lg:px-10 py-10">

@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const commentSchema = require('./Comment');
 const { format } = require('date-fns')
 

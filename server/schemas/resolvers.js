@@ -1,4 +1,4 @@
-const { User, Post } = require('../models')
+const { User, Post, Tag } = require('../models')
 const { AuthenticationError } = require('apollo-server-express')
 const { signToken } = require('../utils/auth')
 
@@ -55,18 +55,29 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to submit a post.')
             }
+            console.log('--------', Post, Tag)
 
             const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
-
-            console.log(args.tags)
             
             await User.findByIdAndUpdate(
                 context.user._id,
                 { $push: { posts: post._id } },
                 { new: true }
             )
+
+            args.tags.forEach(async tag => {
+                const currentTag = await Tag.findOneAndUpdate({tagName: tag}, {$addToSet: {posts: post._id}})
+                console.log(currentTag)
+
+                if (!currentTag) {
+                    console.log(`Creating tag for ${tag}`)
+                    Tag.create({tagName: tag, posts: [post._id]})
+                }
+            })
+            
             return post
         },
+
 
         addComment: async (parent, { postId, commentBody }, context) => {
             if (!context.user) {
