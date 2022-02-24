@@ -4,6 +4,15 @@ export const ME = gql`
     query me {
         me {
             username
+            bio
+            followers {
+                username
+                _id
+            }
+            following {
+                username
+                _id
+            }
             posts {
                 _id
                 title

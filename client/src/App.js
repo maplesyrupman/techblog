@@ -6,12 +6,11 @@ import Cookies from 'js-cookie'
 
 import Layout from './pages/Layout'
 import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
 import WritePost from './pages/WritePost'
-import EditPost from './pages/EditPost'
 import Logup from './pages/Logup'
 import SinglePost from './pages/SinglePost';
 import SearchResults from './pages/SearchResults';
+import UserPage from './pages/Dashboard';
 
 const httpLink = createHttpLink({
   uri: '/graphql'
@@ -41,7 +40,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
-              <Route index element={<Dashboard />} />
+              <Route index element={<UserPage isOwnProfile={true} />} />
               {/* <Route path='edit/:postId' element={<EditPost />} /> */}
               <Route path='new' element={<WritePost />} />
             </Route>

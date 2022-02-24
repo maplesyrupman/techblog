@@ -10,11 +10,11 @@ const typeDefs = gql`
         _id: ID
         username: String
         email: String
+        bio: String
         posts: [Post]
         followers: [User]
         following: [User]
     }
-
 
     type Post {
         _id: ID

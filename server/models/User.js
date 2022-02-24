@@ -20,6 +20,10 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
+        bio: {
+            type: String,
+            maxlength: 1028
+        },
         posts: [
             {
                 type: Schema.Types.ObjectId,
