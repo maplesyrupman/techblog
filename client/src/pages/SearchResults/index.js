@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export default function SearchResults() {
     const { search } = useParams
-    const [searchBy, setSearchBy] = useState('Tag')
+    const [searchBy, setSearchBy] = useState('Author')
 
     function selectSearchBy(e) {
         console.log(e.target.value)
@@ -21,15 +21,27 @@ export default function SearchResults() {
                         role="tablist"
                         onClick={selectSearchBy}
                     >
-                        <li className="nav-item flex-grow text-center"
-                            role="presentation">
+                        <li className="nav-item flex-grow text-center" role="presentation">
                             <button
-                                className={`nav-link w-full block font-medium text-xs leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent active ${searchBy === 'Tag' ? 'bg-flame' : ''}`}
-                                id="tabs-home-tabJustify"
+                                className={`
+        ${searchBy === 'Author' ? 'bg-flame' : ''}
+      nav-link
+      w-full
+      block
+      font-medium
+      text-xs
+      leading-tight
+      border-x-0 border-t-0 border-b-2 border-transparent
+      px-6
+      py-3
+      my-2
+      hover:border-transparent hover:bg-gray-100
+      focus:border-transparent
+    `}
                                 role="tab"
                                 type="button"
-                                value="Tag"
-                            >Tag</button>
+                                value='Author'
+                            >Author</button>
                         </li>
                         <li className="nav-item flex-grow text-center" role="presentation">
                             <button className={`
@@ -52,27 +64,15 @@ export default function SearchResults() {
                                 value='Title'
                             >Title</button>
                         </li>
-                        <li className="nav-item flex-grow text-center" role="presentation">
+                        <li className="nav-item flex-grow text-center"
+                            role="presentation">
                             <button
-                                className={`
-        ${searchBy === 'Author' ? 'bg-flame' : ''}
-      nav-link
-      w-full
-      block
-      font-medium
-      text-xs
-      leading-tight
-      border-x-0 border-t-0 border-b-2 border-transparent
-      px-6
-      py-3
-      my-2
-      hover:border-transparent hover:bg-gray-100
-      focus:border-transparent
-    `}
+                                className={`nav-link w-full block font-medium text-xs leading-tight border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent active ${searchBy === 'Tag' ? 'bg-flame' : ''}`}
+                                id="tabs-home-tabJustify"
                                 role="tab"
                                 type="button"
-                                value='Author'
-                            >Author</button>
+                                value="Tag"
+                            >Tag</button>
                         </li>
                     </ul>
                 </div>

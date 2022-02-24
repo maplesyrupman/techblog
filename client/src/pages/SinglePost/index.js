@@ -27,6 +27,10 @@ export default function SinglePost() {
         }
     }
 
+    if (post) {
+        console.log(post)
+    }
+
     if (loading) {
         return (
             <div>
@@ -51,7 +55,7 @@ export default function SinglePost() {
                         {post.text.map(parsePostBody)}
                     </div>
                 </div>
-                <div className='p-4 flex'>
+                <div className='p-4 flex gap-2'>
                     {post.tags.map(tag => <Tag key={tag} tagName={tag} readMode={true} />)}
                 </div>
                 <div className='border-2 w-full'>
