@@ -13,10 +13,10 @@ export default function PostForm() {
     function handleChange(e) {
         switch (e.target.name) {
             case 'title':
-                setPostState({ ...postState, title: e.target.value })
+                setPostState({ ...postState, title: e.target.value.trim() })
                 break
             case 'preamble':
-                setPostState({ ...postState, preamble: e.target.value })
+                setPostState({ ...postState, preamble: e.target.value.trim() })
                 break
             case 'text':
                 setPostState({ ...postState, text: e.target.value.split('\n').filter(value => !!value) })
@@ -28,33 +28,54 @@ export default function PostForm() {
         }
     }
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        submitPost({ variables: { ...postState } })
-        window.location.replace('/dashboard')
-
+    function validatePost() {
+        return postState.title && postState.preamble && postState.text
     }
 
-    function handleTag(e) {
+    function handleSubmit(e) {
         e.preventDefault()
+        if (validatePost()) {
+            console.log(postState)
+            submitPost({ variables: { ...postState, tags: Array.from(postState.tags) } })
+            window.location.replace('/dashboard')
+        } else {
+            alert(`Please fill all required fields`)
+        }
+    }
+
+    function handleTag() {
         if (currentTag) {
-            setPostState(...postState, [...postState.tags, currentTag])
+            postState.tags.add(currentTag)
+            setPostState({ ...postState, tags: postState.tags })
             setCurrentTag('')
+        }
+        document.getElementById('tag-input').value=''
+    }
+
+    function handleKeyDown(e) {
+        const key = e.charCode || e.keyCode || 0
+        if (key == 13) {
+            e.preventDefault()
+            if (document.activeElement.id === 'tag-input'){ 
+                handleTag()
+            }
         }
     }
 
     return (
         <div className="border-2 bg-main-light md:px-36 py-8">
             <form
+                id='post-form'
                 className="flex flex-col gap-3"
                 onSubmit={handleSubmit}
+                onKeyDown={handleKeyDown}
             >
                 <div className="flex flex-col">
                     <label htmlFor="title">Title</label>
                     <input
                         type='text'
                         name='title'
-                        className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
+                        className={`bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame`}
                         onChange={handleChange}
                     />
                 </div>
@@ -83,6 +104,7 @@ export default function PostForm() {
                             name='tag'
                             className="bg-secondary border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-gray-300 focus:border-flame"
                             onChange={handleChange}
+                            id='tag-input'
                         />
                         <button
                             type="button"
@@ -91,8 +113,8 @@ export default function PostForm() {
                             Add
                         </button>
                     </div>
-                    <div>
-                        {[...postState.tags].map(tag => <Tag tagName={tag} setPostState={setPostState} postState={postState} />)}
+                    <div className="flex gap-1 flex-wrap col-span-4">
+                        {[...postState.tags].map(tag => <Tag key={tag} tagName={tag} setPostState={setPostState} postState={postState} />)}
                     </div>
 
                 </div>

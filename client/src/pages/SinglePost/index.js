@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { QUERY_SINGLE_POST } from '../../utils/queries'
 import CommentSection from '../../components/CommentSection'
+import Tag from '../../components/Tag'
 
 export default function SinglePost() {
     const { postId } = useParams()
@@ -49,6 +50,9 @@ export default function SinglePost() {
                     <div className="text-gray-700 text-base mb-4">
                         {post.text.map(parsePostBody)}
                     </div>
+                </div>
+                <div className='p-4 flex'>
+                    {post.tags.map(tag => <Tag key={tag} tagName={tag} readMode={true} />)}
                 </div>
                 <div className='border-2 w-full'>
                     <CommentSection comments={post.comments} likeCount={post.likeCount} dislikeCount={post.dislikeCount} postId={post._id} />

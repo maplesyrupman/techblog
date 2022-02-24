@@ -22,6 +22,11 @@ const postSchema = new Schema(
         maxlength: 1000000
       }
     ],
+    tags: [
+      {
+        type: String
+      }
+    ],
     createdAt: {
       type: Date,
       default: Date.now,

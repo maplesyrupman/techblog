@@ -18,6 +18,7 @@ export const QUERY_SINGLE_POST = gql`
             title
             preamble
             text
+            tags
             createdAt
             author
             authorId
@@ -31,6 +32,7 @@ export const QUERY_SINGLE_POST = gql`
         }
     }
 `
+
 
 export const QUERY_POSTS = gql`
     query posts {

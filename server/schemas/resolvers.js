@@ -55,10 +55,11 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to submit a post.')
             }
-            console.log(context.user)
 
             const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
 
+            console.log(args.tags)
+            
             await User.findByIdAndUpdate(
                 context.user._id,
                 { $push: { posts: post._id } },

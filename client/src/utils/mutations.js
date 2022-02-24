@@ -25,8 +25,8 @@ export const SIGNUP_USER = gql`
 `
 
 export const SUBMIT_POST = gql`
-    mutation submitPost($title: String!, $preamble: String!, $text: [String]!){
-        submitPost(title: $title, preamble: $preamble, text: $text) {
+    mutation submitPost($title: String!, $preamble: String!, $text: [String]!, $tags: [String]){
+        submitPost(title: $title, preamble: $preamble, text: $text, tags: $tags) {
             title
             preamble
             text

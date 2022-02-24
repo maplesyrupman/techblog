@@ -7,7 +7,14 @@ const tagSchema = new Schema(
             required: 'Must provide a name for the tag',
             minlength: 1,
             maxlength: 75
-        }
+        },
+
+        posts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Post'
+            }
+        ]
     }
 )
 
