@@ -38,7 +38,7 @@ export default function SearchResults() {
       my-2
       hover:border-transparent hover:bg-gray-100
       focus:border-transparent
-      rounded-bl-full
+      rounded-l-full
     `}
                                 role="tab"
                                 type="button"
@@ -69,7 +69,7 @@ export default function SearchResults() {
                         <li className="nav-item flex-grow text-center"
                             role="presentation">
                             <button
-                                className={`nav-link w-full block font-medium text-xs leading-tight rounded-br-full border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent active ${searchBy === 'Tag' ? 'bg-flame' : ''}`}
+                                className={`nav-link w-full block font-medium text-xs leading-tight rounded-r-full border-x-0 border-t-0 border-b-2 border-transparent px-6 py-3 my-2 hover:border-transparent hover:bg-gray-100 focus:border-transparent active ${searchBy === 'Tag' ? 'bg-flame' : ''}`}
                                 id="tabs-home-tabJustify"
                                 role="tab"
                                 type="button"

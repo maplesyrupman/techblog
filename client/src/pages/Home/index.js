@@ -4,8 +4,8 @@ import { QUERY_POSTS } from '../../utils/queries'
 import { useQuery } from '@apollo/client'
 
 export default function Home() {
-    const {data, loading} = useQuery(QUERY_POSTS)
-    const {posts} = data || {}
+    const { data, loading } = useQuery(QUERY_POSTS)
+    const { posts } = data || {}
     if (data) {
         console.log(data)
     }
@@ -20,7 +20,10 @@ export default function Home() {
 
     return (
         <div className='pb-12'>
-            <SearchBar/>
+            <div className='w-7/12 mx-auto'>
+                <SearchBar/>
+            </div>
+
             {posts.map(post => <PostThumbnail postData={post} key={post._id}></PostThumbnail>)}
         </div>
     )

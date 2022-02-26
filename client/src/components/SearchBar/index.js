@@ -19,7 +19,7 @@ export default function SearchBar() {
     return (
         <div className="flex justify-center">
             <form className="w-full flex justify-center" onSubmit={handleSubmit}>
-                <div className="w-full bg-main-light p-3 rounded-t-full 3xl px-6">
+                <div className="w-full bg-main-light p-3 rounded-full 3xl">
                     <div className="input-group relative flex">
                         <input type="search" className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-tertiary bg-clip-padding border border-solid border-gray-300 rounded-full transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-flame focus:outline-none" placeholder="Search" aria-label="Search" aria-describedby="button-addon2" onChange={handleChange} />
                         <button className="btn inline-block px-6 py-2.5 bg-main-light text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-flame hover:shadow-lg focus:bg-flame  focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center" type="submit" id="button-addon2">

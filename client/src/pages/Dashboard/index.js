@@ -1,20 +1,25 @@
-import { useQuery } from "@apollo/client"
+import { useQuery, useMutation } from "@apollo/client"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ME } from "../../utils/queries"
+import { UPDATE_BIO } from "../../utils/mutations"
 
 import { FaPen, FaCheck } from 'react-icons/fa'
 
 export default function UserPage({ isOwnProfile }) {
     const { data, loading } = useQuery(ME)
-    const { posts, username, bio, followers, following } = data?.me || []
+    let { posts, username, bio, followers, following } = data?.me || []
 
     const [isEdit, setIsEdit] = useState(false)
     const [bioDraft, setBioDraft] = useState(bio)
+    const [updateBio] = useMutation(UPDATE_BIO)
 
     function handleEdit() {
+        if (isEdit && bioDraft) {
+            updateBio({ variables: {bio: bioDraft}})
+        }
         setIsEdit(!isEdit)
-        console.log(bioDraft)
+        setBioDraft(null)
     }
 
     function handleBioChange(e) {
@@ -73,12 +78,12 @@ export default function UserPage({ isOwnProfile }) {
                             defaultValue={bio}
                             />
                         ) || (
-                                <p>{bio || 'nothing to see here...'}</p>
+                                <p id='biotext' >{bio || 'nothing to see here...'}</p>
                             )}
 
                     </div>
                 </div>
-                <div className="col-span-7 flex flex-col py-2">
+                <div className="col-span-7 flex flex-col">
                     <div className="overflow-y-scroll pl-1 overflow-x-hidden h-80 mb-2 border-2">
                         {posts && posts.map(post => (
                             <Link to={`/post/${post._id}`} key={post._id} className="w-full mx-auto">

@@ -48,6 +48,8 @@ const typeDefs = gql`
         signup(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
 
+        updateBio(bio: String!): User
+
         submitPost(title: String!, preamble: String!, text: [String]!, tags: [String]): Post 
         likePost(postId: ID!): Post
         addComment(postId: ID!, commentBody: String!): Post

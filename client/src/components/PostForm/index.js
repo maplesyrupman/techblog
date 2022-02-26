@@ -49,16 +49,15 @@ export default function PostForm() {
             setPostState({ ...postState, tags: postState.tags })
             setCurrentTag('')
         }
-        document.getElementById('tag-input').value=''
+        document.getElementById('tag-input').value = ''
     }
 
     function handleKeyDown(e) {
         const key = e.charCode || e.keyCode || 0
-        if (key == 13) {
+        if (key == 13 && document.activeElement.id === 'tag-input') {
             e.preventDefault()
-            if (document.activeElement.id === 'tag-input'){ 
-                handleTag()
-            }
+            handleTag()
+
         }
     }
 

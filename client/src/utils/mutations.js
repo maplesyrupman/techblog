@@ -24,6 +24,15 @@ export const SIGNUP_USER = gql`
     }
 `
 
+export const UPDATE_BIO = gql`
+    mutation updateBio($bio: String!) {
+        updateBio(bio: $bio) {
+            _id
+            bio
+        }
+    }
+`
+
 export const SUBMIT_POST = gql`
     mutation submitPost($title: String!, $preamble: String!, $text: [String]!, $tags: [String]){
         submitPost(title: $title, preamble: $preamble, text: $text, tags: $tags) {

@@ -44,6 +44,7 @@ function App() {
               {/* <Route path='edit/:postId' element={<EditPost />} /> */}
               <Route path='new' element={<WritePost />} />
             </Route>
+            <Route path='user/:userId' element={<UserPage isOwnProfile={false} />} />
             <Route path='search/:search' element={<SearchResults />} />
             <Route path='logup' element={<Logup />} />
           </Route>

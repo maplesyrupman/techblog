@@ -51,6 +51,15 @@ const resolvers = {
             return { token, user }
         },
 
+        updateBio: async (parent, {bio}, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Must be logged in to complete this action.')
+            }
+
+            
+            return await User.findByIdAndUpdate(context.user._id, {$set: {bio}})
+        },
+
         submitPost: async (parent, args, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to submit a post.')
