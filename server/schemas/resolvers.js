@@ -8,8 +8,8 @@ const resolvers = {
             return await User.find({})
         },
 
-        me: async (parent, args, context) => {
-            return await User.findById(context.user._id).populate('posts')
+        user: async (parent, args) => {
+            return await User.findById(args.userId).populate('posts').populate('followers').populate('following')
         },
 
         post: async (parent, args) => {
@@ -64,7 +64,6 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to submit a post.')
             }
-            console.log('--------', Post, Tag)
 
             const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
             

@@ -1,14 +1,21 @@
 import { useQuery, useMutation } from "@apollo/client"
 import React, { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { ME } from "../../utils/queries"
+import { Link, useParams } from "react-router-dom"
+import { QUERY_USER } from "../../utils/queries"
 import { UPDATE_BIO } from "../../utils/mutations"
+import auth from "../../utils/auth"
+import Post from "../../components/PostThumbnail"
 
 import { FaPen, FaCheck } from 'react-icons/fa'
 
-export default function UserPage({ isOwnProfile }) {
-    const { data, loading } = useQuery(ME)
-    let { posts, username, bio, followers, following } = data?.me || []
+export default function UserPage({ }) {
+    const { userId } = useParams()
+    const id = userId || auth.getProfile().data._id
+    const { data, loading } = useQuery(QUERY_USER, { variables: { userId: id } })
+    let { posts, username, bio, followers, following } = data?.user || []
+    const isOwnProfile = !userId
+    console.log(posts)
+
 
     const [isEdit, setIsEdit] = useState(false)
     const [bioDraft, setBioDraft] = useState(bio)
@@ -16,7 +23,7 @@ export default function UserPage({ isOwnProfile }) {
 
     function handleEdit() {
         if (isEdit && bioDraft) {
-            updateBio({ variables: {bio: bioDraft}})
+            updateBio({ variables: { bio: bioDraft } })
         }
         setIsEdit(!isEdit)
         setBioDraft(null)
@@ -35,8 +42,8 @@ export default function UserPage({ isOwnProfile }) {
     }
 
     return (
-        <div className="border-2 py-4 px-2">
-            <div className='grid grid-cols-12 gap-4'>
+        <div className="border-2 w-7/12 mx-auto pb-5">
+            <div className='flex flex-col'>
                 <div className="col-span-5 border-2 rounded p-2">
                     <div className="flex gap-2">
                         <h2 className="text-3xl">{username}</h2>
@@ -63,19 +70,20 @@ export default function UserPage({ isOwnProfile }) {
                     <div>
                         <div className="flex gap-1 mt-2 items-center">
                             <h3 className="text-2xl">Bio</h3>
-                            <button
+                            {isOwnProfile && (<button
                                 className="inline-block rounded-full bg-blue-600 text-white leading-normal uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-6 h-6"
                                 type='button'
                                 onClick={handleEdit}
                             >
                                 {!isEdit && (<FaPen className="mx-auto text-xs" />) || (<FaCheck className="mx-auto text-xs" />)}
-                            </button>
+
+                            </button>)}
                         </div>
                         {isEdit && (
-                            <textarea 
-                            className="w-9/12"
-                            onChange={handleBioChange}
-                            defaultValue={bio}
+                            <textarea
+                                className="w-9/12"
+                                onChange={handleBioChange}
+                                defaultValue={bio}
                             />
                         ) || (
                                 <p id='biotext' >{bio || 'nothing to see here...'}</p>
@@ -83,24 +91,20 @@ export default function UserPage({ isOwnProfile }) {
 
                     </div>
                 </div>
-                <div className="col-span-7 flex flex-col">
-                    <div className="overflow-y-scroll pl-1 overflow-x-hidden h-80 mb-2 border-2">
-                        {posts && posts.map(post => (
-                            <Link to={`/post/${post._id}`} key={post._id} className="w-full mx-auto">
-                                <button type='button' className="px-10 py-1 my-1 border-2 rounded text-left py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 w-full">
-                                    {post.title}
-                                </button>
-                            </Link>
-                        ))}
-                    </div>
+                {/* <div className="flex flex-col px-2">
                     {isOwnProfile && (
                         <div className="flex">
-                            <Link to='/dashboard/new' className="max-w-min mx-auto">
+                            <Link to='/dashboard/new' className="max-w-min mx-auto my-5">
                                 <button type='button' className="mx-auto bg-main-light hover:bg-flame text-white font-bold py-2 px-4 rounded wrap-nowrap min-w-max">+ New Post</button>
                             </Link>
                         </div>
                     )}
-                </div>
+                    <div className="overflow-y-auto flex flex-col gap-5 max-h-60-screen">
+                        {posts && posts.map(post => (
+                            <Post postData={post}  key={post._id}/>
+                        ))}
+                    </div>
+                </div> */}
             </div>
 
         </div>

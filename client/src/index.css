@@ -13,6 +13,10 @@
     @apply outline outline-1 rounded;
 }
 
+.max-h-60-screen {
+    max-height: 60vh;
+}
+
 #root {
     min-height: 100vh;
 }

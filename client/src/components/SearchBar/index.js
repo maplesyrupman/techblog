@@ -17,7 +17,7 @@ export default function SearchBar() {
     }
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-5">
             <form className="w-full flex justify-center" onSubmit={handleSubmit}>
                 <div className="w-full bg-main-light p-3 rounded-full 3xl">
                     <div className="input-group relative flex">

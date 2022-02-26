@@ -86,7 +86,7 @@ export default function CommentSection({ comments, likeCount, dislikeCount, post
             )}
             <div className='max-h-96 overflow-auto'>
                 {comments.length && (comments.map(comment => (
-                    <Comment key={comment.author + comment.createdAt} comment={comment} />
+                    <Comment key={comment._id} comment={comment} />
                 ))) || (
                         <div>
                             No Comments Yet!

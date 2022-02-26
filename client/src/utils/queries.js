@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client"
 
-export const ME = gql`
-    query me {
-        me {
+export const QUERY_USER = gql`
+    query user($userId: ID!) {
+        user(userId: $userId) {
             username
             bio
             followers {
@@ -16,6 +16,9 @@ export const ME = gql`
             posts {
                 _id
                 title
+                preamble
+                author
+                createdAt
             }
         }
     }
@@ -33,6 +36,7 @@ export const QUERY_SINGLE_POST = gql`
             author
             authorId
             comments {
+                _id
                 commentBody
                 username
                 createdAt

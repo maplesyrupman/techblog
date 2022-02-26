@@ -40,11 +40,11 @@ function App() {
             <Route index element={<Home />} />
             <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
-              <Route index element={<UserPage isOwnProfile={true} />} />
+              <Route index element={<UserPage/>} />
               {/* <Route path='edit/:postId' element={<EditPost />} /> */}
               <Route path='new' element={<WritePost />} />
             </Route>
-            <Route path='user/:userId' element={<UserPage isOwnProfile={false} />} />
+            <Route path='user/:userId' element={<UserPage />} />
             <Route path='search/:search' element={<SearchResults />} />
             <Route path='logup' element={<Logup />} />
           </Route>

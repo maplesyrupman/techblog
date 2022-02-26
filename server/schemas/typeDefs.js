@@ -31,6 +31,7 @@ const typeDefs = gql`
     }
 
     type comment {
+        _id: ID
         commentBody: String
         username: String
         createdAt: String
@@ -38,8 +39,7 @@ const typeDefs = gql`
 
     type Query {
         users: [User]
-        user(username: String!): User
-        me: User
+        user(userId: ID!): User
         post(postId: ID!): Post
         posts: [Post]
     }
@@ -57,5 +57,6 @@ const typeDefs = gql`
         follow(followedId: ID!, followerId: ID!): User
     }
 `
+
 
 module.exports = typeDefs 

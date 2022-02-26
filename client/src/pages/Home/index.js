@@ -19,12 +19,13 @@ export default function Home() {
     }
 
     return (
-        <div className='pb-12'>
-            <div className='w-7/12 mx-auto'>
-                <SearchBar/>
+        <div className='pb-12 w-7/12 mx-auto'>
+            <div className=''>
+                <SearchBar />
             </div>
-
-            {posts.map(post => <PostThumbnail postData={post} key={post._id}></PostThumbnail>)}
+            <div className='flex flex-col gap-5'>
+                {posts.map(post => <PostThumbnail postData={post} key={post._id}></PostThumbnail>)}
+            </div>
         </div>
     )
 }
