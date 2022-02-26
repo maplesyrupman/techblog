@@ -1,6 +1,7 @@
 
 
-export default function UserTab({username, followerCount, followingCount, articlesCount}) {
+export default function UserTab({user}) {
+    const {username, followerCount, followingCount, articlesCount} = user
 
     return (
         <div className="flex border rounded-full p-4 justify-between">

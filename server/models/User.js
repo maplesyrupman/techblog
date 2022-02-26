@@ -67,6 +67,14 @@ userSchema.virtual('followerCount').get(function () {
     return this.followers.length;
 });
 
+userSchema.virtual('followingCount').get(function() {
+    return this.following.length
+})
+
+userSchema.virtual('articleCount').get(function() {
+    return this.posts.length
+})
+
 const User = model('User', userSchema);
 
 module.exports = User;

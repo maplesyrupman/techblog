@@ -7,6 +7,7 @@ import auth from "../../utils/auth"
 import Post from "../../components/PostThumbnail"
 
 import { FaPen, FaCheck } from 'react-icons/fa'
+import ProfilePosts from "../../components/ProfilePosts"
 
 export default function UserPage({ }) {
     const { userId } = useParams()
@@ -42,7 +43,7 @@ export default function UserPage({ }) {
     }
 
     return (
-        <div className="border-2 w-7/12 mx-auto pb-5">
+        <div className="border-2 w-7/12 mx-auto">
             <div className='flex flex-col'>
                 <div className="col-span-5 border-2 rounded p-2">
                     <div className="flex gap-2">
@@ -91,7 +92,7 @@ export default function UserPage({ }) {
 
                     </div>
                 </div>
-                {/* <div className="flex flex-col px-2">
+                <div className="flex flex-col px-2 py-4">
                     {isOwnProfile && (
                         <div className="flex">
                             <Link to='/dashboard/new' className="max-w-min mx-auto my-5">
@@ -100,11 +101,9 @@ export default function UserPage({ }) {
                         </div>
                     )}
                     <div className="overflow-y-auto flex flex-col gap-5 max-h-60-screen">
-                        {posts && posts.map(post => (
-                            <Post postData={post}  key={post._id}/>
-                        ))}
+                        <ProfilePosts isOwnProfile={isOwnProfile} posts={posts} />
                     </div>
-                </div> */}
+                </div>
             </div>
 
         </div>

@@ -24,6 +24,17 @@ export const QUERY_USER = gql`
     }
 `
 
+export const QUERY_USERS = gql`
+    query users($username: String!) {
+        users(username: $username) {
+            username
+            followerCount
+            followingCount
+            articleCount
+        }
+    }
+`
+
 export const QUERY_SINGLE_POST = gql`
     query post($postId: ID!) {
         post (postId: $postId){

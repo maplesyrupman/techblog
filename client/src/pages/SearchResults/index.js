@@ -80,7 +80,7 @@ export default function SearchResults() {
                 </div>
             </div>
             <div className="p-4 border">
-                <UserTab username={'someguy'} followerCount={7} followingCount={3} articlesCount={10} />
+                <UserTab user={{username: 'testguy', followers: [], following: [], articles: []}} />
             </div>
         </div>
     )

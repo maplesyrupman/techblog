@@ -14,6 +14,9 @@ const typeDefs = gql`
         posts: [Post]
         followers: [User]
         following: [User]
+        articleCount: Int
+        followerCount: Int
+        followingCount: Int
     }
 
     type Post {
