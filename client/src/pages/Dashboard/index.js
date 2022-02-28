@@ -12,7 +12,7 @@ export default function UserPage({ }) {
     const { userId } = useParams()
     const id = userId || auth.getProfile().data._id
     const { data, loading } = useQuery(QUERY_USER, { variables: { userId: id } })
-    let { posts, username, bio, followers, following } = data?.user || {}
+    let { posts, username, bio, followers, following, followerCount } = data?.user || {}
     const isOwnProfile = !userId
 
     const [amFollowing, setAmFollowing] = useState()

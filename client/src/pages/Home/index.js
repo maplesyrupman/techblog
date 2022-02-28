@@ -6,9 +6,6 @@ import { useQuery } from '@apollo/client'
 export default function Home() {
     const { data, loading } = useQuery(QUERY_POSTS)
     const { posts } = data || {}
-    if (data) {
-        console.log(data)
-    }
 
     if (loading) {
         return (

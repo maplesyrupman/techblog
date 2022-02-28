@@ -12,7 +12,10 @@ const Layout = () => {
             <div className='p-5'>
                 <nav className=' p-6 flex flex-row justify-between bg-main-light rounded-full'>
                     <div className='flex flex-row items-end min-h-min'>
-                        <div className='font-mono text-7xl whitespace-nowrap'><FaFileAlt className='inline' />InfoShare</div>
+                        <div className='font-mono text-7xl whitespace-nowrap flex items-center'>
+                            <FaFileAlt className='inline text-5xl mb-3' />
+                            <h1 className='leading-none'>InfoShare</h1>
+                        </div>
                     </div>
                     <ul className='flex flex-row items-end text-secondary'>
                         <li className='nav-link'>

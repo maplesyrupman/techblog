@@ -11,7 +11,7 @@ export default function Post({postData}) {
         <div className="flex justify-center text-secondary">
             <div className="block rounded-lg w-full text-center">
                 <div className="py-3 px-6 rounded-t-lg bg-main-light flex items-end justify-between">
-                    <h5 className="text-secondary text-3xl font-medium font-mono hover:cursor-pointer" onClick={navigatePost}>{title}</h5>
+                    <h5 className="text-3xl font-medium font-mono hover:cursor-pointer" onClick={navigatePost}>{title}</h5>
                     <p className="align-baseline">
                         <span> {author} </span> 
                         on {createdAt}

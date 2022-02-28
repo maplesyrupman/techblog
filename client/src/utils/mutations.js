@@ -80,6 +80,7 @@ export const FOLLOW = gql`
                 username
                 _id
             }
+            followerCount
         }
     }
 `

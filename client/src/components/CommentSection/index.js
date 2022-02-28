@@ -73,13 +73,13 @@ export default function CommentSection({ comments, likeCount, dislikeCount, post
                     <div>
                         <textarea
                             rows={3}
-                            className='resize-none  w-full'
+                            className='resize-none  w-full bg-tertiary text-black'
                             onChange={handleChange}
                         />
                     </div>
                     <div className='flex justify-end'>
                         <button
-                            className='bg-gray-200 hover:bg-flame text-white font-bold py-2 px-4 rounded'
+                            className='bg-main-light hover:bg-flame text-white font-bold py-2 px-4 rounded'
                             type='submit'>Submit</button>
                     </div>
                 </form>
