@@ -2,9 +2,8 @@ import { useQuery, useMutation } from "@apollo/client"
 import React, { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { QUERY_USER } from "../../utils/queries"
-import { UPDATE_BIO } from "../../utils/mutations"
+import { FOLLOW, UPDATE_BIO } from "../../utils/mutations"
 import auth from "../../utils/auth"
-import Post from "../../components/PostThumbnail"
 
 import { FaPen, FaCheck } from 'react-icons/fa'
 import ProfilePosts from "../../components/ProfilePosts"
@@ -13,14 +12,20 @@ export default function UserPage({ }) {
     const { userId } = useParams()
     const id = userId || auth.getProfile().data._id
     const { data, loading } = useQuery(QUERY_USER, { variables: { userId: id } })
-    let { posts, username, bio, followers, following } = data?.user || []
+    let { posts, username, bio, followers, following } = data?.user || {}
     const isOwnProfile = !userId
-    console.log(posts)
 
+    const [amFollowing, setAmFollowing] = useState()
+
+    useEffect(() => {
+        setAmFollowing(followers ? followers.some(user => user._id == auth.getProfile().data._id) : undefined)
+    }, [data])
 
     const [isEdit, setIsEdit] = useState(false)
     const [bioDraft, setBioDraft] = useState(bio)
     const [updateBio] = useMutation(UPDATE_BIO)
+
+    const [follow] = useMutation(FOLLOW)
 
     function handleEdit() {
         if (isEdit && bioDraft) {
@@ -32,6 +37,13 @@ export default function UserPage({ }) {
 
     function handleBioChange(e) {
         setBioDraft(e.target.value)
+    }
+
+    function handleFollow() {
+        const action = amFollowing ? 'unfollow' : 'follow'
+        console.log(action)
+        follow({ variables: { followedId: userId, action } })
+        setAmFollowing(!amFollowing)
     }
 
     if (loading) {
@@ -50,10 +62,11 @@ export default function UserPage({ }) {
                         <h2 className="text-3xl">{username}</h2>
                         {!isOwnProfile && (
                             <button
-                                className="inline-block px-4 border-2 border-flame text-flame font-medium text-xs uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                                className={`inline-block px-4 border-2 border-flame ${amFollowing ? 'text-white bg-flame' : 'text-flame'} font-medium text-xs uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out `}
                                 type="button"
+                                onClick={handleFollow}
                             >
-                                follow
+                                {amFollowing ? 'Following' : 'Follow'}
                             </button>
                         )}
                     </div>

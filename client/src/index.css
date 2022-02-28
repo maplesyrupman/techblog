@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 
+* {
+    color: white;
+}
+
 .nav-link {
     @apply mx-2 font-mono text-3xl;
 }

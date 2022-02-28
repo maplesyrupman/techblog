@@ -70,3 +70,16 @@ export const LIKE_DISLIKE = gql`
         }
     }
 `
+
+export const FOLLOW = gql`
+    mutation follow($followedId: ID!, $action: String!) {
+        follow(followedId: $followedId, action: $action) {
+            _id
+            username
+            followers {
+                username
+                _id
+            }
+        }
+    }
+`

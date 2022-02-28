@@ -8,7 +8,7 @@ const resolvers = {
             return await User.find({})
         },
 
-        user: async (parent, args) => {
+        user: async (parent, args, context) => {
             return await User.findById(args.userId).populate('posts').populate('followers').populate('following')
         },
 
@@ -25,7 +25,6 @@ const resolvers = {
         signup: async (parent, args) => {
             const user = await User.create(args)
             const token = signToken(user)
-            console.log('made it this far')
 
             return { token, user }
         },
@@ -51,13 +50,13 @@ const resolvers = {
             return { token, user }
         },
 
-        updateBio: async (parent, {bio}, context) => {
+        updateBio: async (parent, { bio }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to complete this action.')
             }
 
-            
-            return await User.findByIdAndUpdate(context.user._id, {$set: {bio}})
+
+            return await User.findByIdAndUpdate(context.user._id, { $set: { bio } })
         },
 
         submitPost: async (parent, args, context) => {
@@ -66,7 +65,7 @@ const resolvers = {
             }
 
             const post = await Post.create({ ...args, author: context.user.username, authorId: context.user._id })
-            
+
             await User.findByIdAndUpdate(
                 context.user._id,
                 { $push: { posts: post._id } },
@@ -74,15 +73,15 @@ const resolvers = {
             )
 
             args.tags.forEach(async tag => {
-                const currentTag = await Tag.findOneAndUpdate({tagName: tag}, {$addToSet: {posts: post._id}})
+                const currentTag = await Tag.findOneAndUpdate({ tagName: tag }, { $addToSet: { posts: post._id } })
                 console.log(currentTag)
 
                 if (!currentTag) {
                     console.log(`Creating tag for ${tag}`)
-                    Tag.create({tagName: tag, posts: [post._id]})
+                    Tag.create({ tagName: tag, posts: [post._id] })
                 }
             })
-            
+
             return post
         },
 
@@ -110,47 +109,63 @@ const resolvers = {
             if (isLike) {
                 post = await Post.findByIdAndUpdate(
                     postId,
-                    { 
+                    {
                         $addToSet: { likes: context.user._id },
-                        $pull: { dislikes: context.user._id}
+                        $pull: { dislikes: context.user._id }
                     },
                     { new: true }
                 )
             } else {
                 post = await Post.findByIdAndUpdate(
                     postId,
-                    { 
-                        $addToSet: { dislikes: context.user._id},
-                        $pull: { likes: context.user._id}
+                    {
+                        $addToSet: { dislikes: context.user._id },
+                        $pull: { likes: context.user._id }
                     },
-                    {new: true}
+                    { new: true }
                 )
             }
-            
+
             return post
         },
 
-        follow: async (parent, { followedId }, context) => {
+        follow: async (parent, { followedId, action }, context) => {
             if (!context.user) {
-                throw new AuthenticationError('Must be logged in to follow somebody.')
+                throw new AuthenticationError('Must be logged in to preform this action.')
             }
 
-            const followedUser = await User.findByIdAndUpdate(
-                followedId,
-                { $addToSet: { followers: context.user._id } },
-                { new: true }
-            )
+            console.log(action)
 
-            const followingUser = await User.findByIdAndUpdate(
-                context.user._id,
-                { $addToSet: { following: followedId } },
-                { new: true }
-            )
-
-            return { followedUser, followingUser }
+            if (action === 'follow') {
+                const followedUser = await User.findByIdAndUpdate(
+                    followedId,
+                    { $addToSet: { followers: context.user._id } },
+                    { new: true }
+                )
+    
+                const followingUser = await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $addToSet: { following: followedId } },
+                    { new: true }
+                )
+    
+                return followedUser
+            } else {
+                const followedUser = await User.findByIdAndUpdate(
+                    followedId,
+                    { $pull: { followers: context.user._id } },
+                    { new: true }
+                )
+    
+                const followingUser = await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $pull: { following: followedId } },
+                    { new: true }
+                )
+    
+                return followedUser
+            }
         },
-
-
     }
 }
 

@@ -13,6 +13,7 @@ const typeDefs = gql`
         bio: String
         posts: [Post]
         followers: [User]
+        amFollowing: Boolean
         following: [User]
         articleCount: Int
         followerCount: Int
@@ -57,7 +58,9 @@ const typeDefs = gql`
         likePost(postId: ID!): Post
         addComment(postId: ID!, commentBody: String!): Post
         likeDislike(postId: ID!, isLike: Boolean!): Post
-        follow(followedId: ID!, followerId: ID!): User
+
+        follow(followedId: ID!, action: String!): User
+        unfollow(followedId: ID!): User
     }
 `
 
