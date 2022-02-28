@@ -6,10 +6,11 @@ import Cookies from 'js-cookie'
 
 import Layout from './pages/Layout'
 import Home from './pages/Home'
+import Feed from './pages/Feed'
 import WritePost from './pages/WritePost'
 import Logup from './pages/Logup'
 import SinglePost from './pages/SinglePost';
-import SearchResults from './pages/SearchResults';
+import SearchResults from './pages/SearchResults'
 import UserPage from './pages/Dashboard';
 
 const httpLink = createHttpLink({
@@ -38,6 +39,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='feed' element={<Feed />} />
             <Route path='post/:postId' element={<SinglePost />} />
             <Route path='dashboard'>
               <Route index element={<UserPage/>} />

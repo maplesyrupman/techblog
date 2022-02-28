@@ -1,6 +1,6 @@
 import { Outlet, Link } from 'react-router-dom'
 import Auth from '../../utils/auth'
-import {FaFileAlt} from 'react-icons/fa'
+import { FaFileAlt } from 'react-icons/fa'
 
 const Layout = () => {
     function logout() {
@@ -19,25 +19,30 @@ const Layout = () => {
                     </div>
                     <ul className='flex flex-row items-end text-secondary'>
                         <li className='nav-link'>
-                            <Link to='/'>Home</Link>
+                            <Link to='/'>All</Link>
                         </li>
                         {Auth.loggedIn() && (
-                            <li className='nav-link'>
-                                <Link to='/dashboard'>Dashboard</Link>
-                            </li>
+                            <>
+                                <li className='nav-link'>
+                                    <Link to='/feed'>Feed</Link>
+                                </li>
+                                <li className='nav-link'>
+                                    <Link to='/dashboard'>Dashboard</Link>
+                                </li>
+                            </>
                         )}
                         {(Auth.loggedIn() && (
-                            <li 
-                            className='nav-link hover:cursor-pointer'
-                            onClick={logout}
+                            <li
+                                className='nav-link hover:cursor-pointer'
+                                onClick={logout}
                             >
                                 <h1>Logout</h1>
                             </li>
                         )) || (
-                            <li className='nav-link'>
-                                <Link to='/logup'>Login</Link>
-                            </li>
-                        )}
+                                <li className='nav-link'>
+                                    <Link to='/logup'>Login</Link>
+                                </li>
+                            )}
                     </ul>
                 </nav>
             </div>

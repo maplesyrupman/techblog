@@ -84,3 +84,22 @@ export const QUERY_POSTS = gql`
         }
     }
 `
+
+export const FEED_POSTS = gql`
+    query feedPosts($followingIds: [ID]!){
+        feedPosts(followingIds: $followingIds) {
+            _id
+            title
+            preamble
+            text
+            createdAt
+            author
+            authorId
+            comments {
+                commentBody
+            }
+            likeCount
+            dislikeCount
+        }
+    }
+`

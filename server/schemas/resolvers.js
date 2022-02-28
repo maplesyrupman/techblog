@@ -18,6 +18,11 @@ const resolvers = {
 
         posts: async (parent, args) => {
             return await Post.find({}).sort({createdAt : -1}).populate('comments').populate('likes')
+        },
+
+        feedPosts: async (parent, {followingIds}) => {
+            const posts = Post.find({authorId: {$in: followingIds}}).sort({createdAt: -1})
+            return posts
         }
     },
 

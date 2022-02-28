@@ -5,8 +5,12 @@ const secret = process.env.TOKEN_SECRET
 const expiration = '1h'
 
 module.exports = {
-    signToken: function({ username, email, _id}) {
-        const payload = { username, email, _id}
+    signToken: function({ username, email, _id, following}) {
+
+        const followingIds = following.map(user => user._id)
+
+        const payload = { username, email, _id, followingIds}
+        
 
         return jwt.sign({ data: payload}, secret, {expiresIn: expiration})
     },
