@@ -1,10 +1,24 @@
+import { useNavigate } from "react-router-dom"
+import auth from "../../utils/auth"
 
 
 export default function UserTab({user}) {
-    const {username, followerCount, followingCount, articlesCount} = user
+    const navigate = useNavigate()
+    const {username, followerCount, followingCount, articleCount} = user
+
+    function navigateToProfile() {
+        if (user._id === auth.getProfile().data._id) {
+            navigate('/dashboard')
+        } else {
+            navigate(`/user/${user._id}`)
+        }
+    }
 
     return (
-        <div className="flex border rounded-full p-4 justify-between">
+        <div 
+        className="flex border rounded-full p-4 justify-between hover:bg-flame hover:cursor-pointer"
+        onClick={navigateToProfile}
+        >
             <div>
                 <p>{username}</p>
             </div>
@@ -16,7 +30,7 @@ export default function UserTab({user}) {
                     {followingCount} Following
                 </p>
                 <p>
-                    {articlesCount} Articles
+                    {articleCount} Articles
                 </p>
             </div>
         </div>

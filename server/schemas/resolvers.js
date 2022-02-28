@@ -17,7 +17,7 @@ const resolvers = {
         },
 
         posts: async (parent, args) => {
-            return await Post.find({}).populate('comments').populate('likes')
+            return await Post.find({}).sort({createdAt : -1}).populate('comments').populate('likes')
         }
     },
 
@@ -133,8 +133,6 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('Must be logged in to preform this action.')
             }
-
-            console.log(action)
 
             if (action === 'follow') {
                 const followedUser = await User.findByIdAndUpdate(

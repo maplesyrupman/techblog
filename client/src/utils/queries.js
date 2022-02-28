@@ -9,10 +9,16 @@ export const QUERY_USER = gql`
             followers {
                 username
                 _id
+                articleCount
+                followerCount
+                followingCount
             }
             following {
                 username
                 _id
+                articleCount
+                followerCount
+                followingCount
             }
             posts {
                 _id

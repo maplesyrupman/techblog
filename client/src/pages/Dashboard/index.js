@@ -7,12 +7,13 @@ import auth from "../../utils/auth"
 
 import { FaPen, FaCheck } from 'react-icons/fa'
 import ProfilePosts from "../../components/ProfilePosts"
+import UsersList from "../../components/UsersList"
 
-export default function UserPage({ }) {
+export default function UserPage() {
     const { userId } = useParams()
     const id = userId || auth.getProfile().data._id
     const { data, loading } = useQuery(QUERY_USER, { variables: { userId: id } })
-    let { posts, username, bio, followers, following, followerCount } = data?.user || {}
+    let { posts, username, bio, followers, following } = data?.user || {}
     const isOwnProfile = !userId
 
     const [amFollowing, setAmFollowing] = useState()
@@ -26,6 +27,24 @@ export default function UserPage({ }) {
     const [updateBio] = useMutation(UPDATE_BIO)
 
     const [follow] = useMutation(FOLLOW)
+
+    const [profileView, setProfileView] = useState('articles')
+
+    function selectProfileView(e) {
+        switch (e.target.dataset['view']) {
+            case 'followers':
+                setProfileView('followers')
+                break
+            case 'following':
+                setProfileView('following')
+                break
+            case 'articles':
+                setProfileView('articles')
+                break
+            default:
+                setProfileView('articles')
+        }
+    }
 
     function handleEdit() {
         if (isEdit && bioDraft) {
@@ -70,14 +89,26 @@ export default function UserPage({ }) {
                             </button>
                         )}
                     </div>
-                    <div className="flex gap-2">
-                        <p>
+                    <div
+                        className="flex gap-2"
+                        onClick={selectProfileView}
+                    >
+                        <p
+                            className={`hover:underline hover:cursor-pointer ${profileView === 'followers' ? 'underline' : ''}`}
+                            data-view='followers'
+                        >
                             {followers.length} Followers
                         </p>
-                        <p>
+                        <p
+                            className={`hover:underline hover:cursor-pointer ${profileView === 'following' ? 'underline' : ''}`}
+                            data-view='following'
+                        >
                             {following.length} Following
                         </p>
-                        <p>
+                        <p
+                            className={`hover:underline hover:cursor-pointer ${profileView === 'articles' ? 'underline' : ''}`}
+                            data-view='articles'
+                        >
                             {posts.length} Articles
                         </p>
                     </div>
@@ -102,11 +133,10 @@ export default function UserPage({ }) {
                         ) || (
                                 <p id='biotext' >{bio || 'nothing to see here...'}</p>
                             )}
-
                     </div>
                 </div>
                 <div className="flex flex-col px-2 py-4">
-                    {isOwnProfile && (
+                    {isOwnProfile && profileView === 'articles' && (
                         <div className="flex">
                             <Link to='/dashboard/new' className="max-w-min mx-auto my-5">
                                 <button type='button' className="mx-auto bg-main-light hover:bg-flame text-white font-bold py-2 px-4 rounded wrap-nowrap min-w-max">+ New Post</button>
@@ -114,11 +144,15 @@ export default function UserPage({ }) {
                         </div>
                     )}
                     <div className="overflow-y-auto flex flex-col gap-5 max-h-60-screen">
-                        <ProfilePosts isOwnProfile={isOwnProfile} posts={posts} />
+                        {profileView === 'articles' && (<ProfilePosts isOwnProfile={isOwnProfile} posts={posts} />) 
+                        ||
+                        (profileView === 'followers' && followers.length && (<UsersList users={followers} />))
+                        ||
+                        (profileView === 'following' && (<UsersList users={following} />))
+                        }
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
