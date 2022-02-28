@@ -47,17 +47,17 @@ export default function Logup() {
                 <form onSubmit={handleSubmit} className='mx-auto'>
                     <div className="form-field">
                         <label htmlFor="email">Email</label>
-                        <input type='email' name='email' defaultValue={email} onChange={handleChange} className="form-input" />
+                        <input type='email' name='email' defaultValue={email} onChange={handleChange} className="form-input bg-tertiary text-black" />
                     </div>
                     {isSignup &&
                         <div className="form-field">
                             <label htmlFor="username">Username</label>
-                            <input type='text' name='username' defaultValue={username} onChange={handleChange} className="form-input" />
+                            <input type='text' name='username' defaultValue={username} onChange={handleChange} className="form-input bg-tertiary text-black" />
                         </div>
                     }
                     <div className="form-field">
                         <label htmlFor="password">Password</label>
-                        <input type='password' name='password' defaultValue={password} onChange={handleChange} className="form-input" />
+                        <input type='password' name='password' defaultValue={password} onChange={handleChange} className="form-input bg-tertiary text-black" />
                     </div>
                     <div className="flex flex-col">
                         <p className="text-center">
