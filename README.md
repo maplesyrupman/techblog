@@ -4,6 +4,8 @@ A blog website where users can post and read articles, and follow authors and ta
 
 Deployed [here](https://info-share.herokuapp.com).
 
+![application screenshot:](/applicationScreenshot.png)
+
 ## Description
 
 Users can enjoy the application with or without an account, however they must sign up in order to publish articles or have a custom feed. The main features of the app are listed below.

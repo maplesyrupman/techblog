@@ -19,7 +19,7 @@ const Layout = () => {
                     </div>
                     <ul className='flex flex-row items-end text-secondary'>
                         <li className='nav-link'>
-                            <Link to='/'>All</Link>
+                            <Link to='/'>Discover</Link>
                         </li>
                         {Auth.loggedIn() && (
                             <>

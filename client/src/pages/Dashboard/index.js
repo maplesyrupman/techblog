@@ -126,7 +126,7 @@ export default function UserPage() {
                         </div>
                         {isEdit && (
                             <textarea
-                                className="w-9/12"
+                                className="w-9/12 bg-tertiary text-black"
                                 onChange={handleBioChange}
                                 defaultValue={bio}
                             />
