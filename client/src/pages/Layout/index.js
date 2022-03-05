@@ -14,7 +14,9 @@ const Layout = () => {
                     <div className='flex flex-row items-end min-h-min'>
                         <div className='font-mono text-7xl whitespace-nowrap flex items-center'>
                             <FaFileAlt className='inline text-5xl mb-3' />
-                            <h1 className='leading-none'>InfoShare</h1>
+                            <Link to='/'>
+                                <h1 className='leading-none'>InfoShare</h1>
+                            </Link>
                         </div>
                     </div>
                     <ul className='flex flex-row items-end text-secondary'>

@@ -17,7 +17,7 @@ Once logged in, a user is able to access their custom feed. This is a list of ar
 This page displays the entire post along with any comments and likes, as well as a comment page if the user is logged in. Logged in users can like, dislike, and comment on a post. The authors username links to that users profile page. 
 
 ### User Profile
-The user profile page includes all of the users posts with an 'add post' button, an array of both their followers and those they follow, and a bio which they can edit.
+The user profile page includes all of the users posts with an 'add post' button if it is the logged in user's page, an array of both their followers and those they follow, and a bio.
 
 ### Search Bar
 The search bar can be found on both the feed page and search results page. It allows users to search for other users by username, and articles by title and tag. On the search results page, under the search bar, there is a button bar that allows the user to select by which criteria to search (username, title, tag). 

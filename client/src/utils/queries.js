@@ -72,15 +72,9 @@ export const QUERY_POSTS = gql`
             _id
             title
             preamble
-            text
             createdAt
             author
             authorId
-            comments {
-                commentBody
-            }
-            likeCount
-            dislikeCount
         }
     }
 `
@@ -100,6 +94,31 @@ export const FEED_POSTS = gql`
             }
             likeCount
             dislikeCount
+        }
+    }
+`
+
+export const SEARCH_USER = gql`
+    query searchUser($username: String!) {
+        searchUser(username: $username) {
+            _id
+            username
+            followerCount
+            followingCount
+            articleCount
+        }
+    }
+`
+
+export const SEARCH_ARTICLE = gql`
+    query posts {
+        posts {
+            _id
+            title
+            preamble
+            createdAt
+            author
+            authorId
         }
     }
 `

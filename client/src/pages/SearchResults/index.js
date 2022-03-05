@@ -2,13 +2,24 @@ import SearchBar from "../../components/SearchBar"
 import { useParams } from "react-router-dom"
 import { useState } from 'react'
 import UserTab from "../../components/UserTab"
+import { useQuery } from "@apollo/client"
+import { SEARCH_USER, SEARCH_ARTICLE } from "../../utils/queries"
 
 export default function SearchResults() {
-    const { search } = useParams
+    let { queryString } = useParams()
+    queryString = queryString.split('+').join(' ')
     const [searchBy, setSearchBy] = useState('Author')
+    const query = searchBy === 'Author' ? SEARCH_USER : SEARCH_ARTICLE
+    const queryVariables = 
+    searchBy === 'Author' ?
+    {username: queryString} :
+    searchBy === 'Title' ?
+    {title: queryString} :
+    {tag: queryString}
+
+    const {data, loading} = useQuery(query, {variables: queryVariables})
 
     function selectSearchBy(e) {
-        console.log(e.target.value)
         setSearchBy(e.target.value)
     }
 
@@ -80,7 +91,11 @@ export default function SearchResults() {
                 </div>
             </div>
             <div className="p-4 border">
-                <UserTab user={{username: 'testguy', followers: [], following: [], articles: []}} />
+                {loading && <div>Loading...</div>}
+                {data && (
+                    data.searchUser.map(user => <UserTab user={user} key={user._id}/>)
+                )}
+
             </div>
         </div>
     )

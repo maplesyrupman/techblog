@@ -79,7 +79,7 @@ export default function UserPage() {
                 <div className="col-span-5 border-2 rounded p-2">
                     <div className="flex gap-2">
                         <h2 className="text-3xl">{username}</h2>
-                        {!isOwnProfile && (
+                        {!isOwnProfile && auth.loggedIn() && (
                             <button
                                 className={`inline-block px-4 border-2 border-flame ${amFollowing ? 'text-white bg-flame' : 'text-flame'} font-medium text-xs uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out `}
                                 type="button"

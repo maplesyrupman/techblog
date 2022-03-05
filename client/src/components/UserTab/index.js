@@ -7,7 +7,7 @@ export default function UserTab({user}) {
     const {username, followerCount, followingCount, articleCount} = user
 
     function navigateToProfile() {
-        if (user._id === auth.getProfile().data._id) {
+        if (auth.loggedIn() && user._id === auth.getProfile().data._id) {
             navigate('/dashboard')
         } else {
             navigate(`/user/${user._id}`)

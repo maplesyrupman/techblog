@@ -13,7 +13,8 @@ export default function SearchBar() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        navigate(`/search/${searchState}`)
+        e.target.reset()
+        navigate(`/search/${searchState.split(' ').join('+')}`)
     }
 
     return (

@@ -47,6 +47,8 @@ const typeDefs = gql`
         post(postId: ID!): Post
         posts: [Post]
         feedPosts(followingIds: [ID]!): [Post]
+        searchUser(username: String!): [User]
+        searchArticle(title: String, tag: String): [Post]
     }
 
     type Mutation {

@@ -47,7 +47,7 @@ function App() {
               <Route path='new' element={<WritePost />} />
             </Route>
             <Route path='user/:userId' element={<UserPage />} />
-            <Route path='search/:search' element={<SearchResults />} />
+            <Route path='search/:queryString' element={<SearchResults />} />
             <Route path='logup' element={<Logup />} />
           </Route>
         </Routes>

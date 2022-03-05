@@ -21,8 +21,11 @@ const resolvers = {
         },
 
         feedPosts: async (parent, {followingIds}) => {
-            const posts = Post.find({authorId: {$in: followingIds}}).sort({createdAt: -1})
-            return posts
+            return Post.find({authorId: {$in: followingIds}}).sort({createdAt: -1})
+        },
+
+        searchUser: async (parent, {username}) => {
+            return await User.find({username}) 
         }
     },
 
