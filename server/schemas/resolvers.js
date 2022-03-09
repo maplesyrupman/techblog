@@ -1,7 +1,6 @@
 const { User, Post, Tag } = require('../models')
 const { AuthenticationError } = require('apollo-server-express')
 const { signToken } = require('../utils/auth')
-
 const resolvers = {
     Query: {
         users: async (parent, args) => {
@@ -16,7 +15,7 @@ const resolvers = {
             return await Post.findById(args.postId)
         },
 
-        posts: async (parent, args) => {
+        posts: async () => {
             return await Post.find({}).sort({createdAt : -1}).populate('comments').populate('likes')
         },
 
@@ -32,13 +31,12 @@ const resolvers = {
             return await Post.find({title: { $regex: `${title}`, $options: 'i'}})
         },
 
-        //complete later
         searchArticleTag: async (parent, {tag}) => {
             const articles = await Tag.find({tagName: { $regex: `^${tag}$`}}).populate('posts')
-            return articles[0].posts
-        }
-    },
-
+            return articles.length ? articles[0].posts : []
+        } 
+    },  
+ 
     Mutation: {
         signup: async (parent, args) => {
             const user = await User.create(args)
@@ -143,7 +141,6 @@ const resolvers = {
                     { new: true }
                 )
             }
-
             return post
         },
 

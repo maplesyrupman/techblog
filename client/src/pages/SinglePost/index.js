@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { QUERY_SINGLE_POST } from '../../utils/queries'
 import CommentSection from '../../components/CommentSection'
 import Tag from '../../components/Tag'
+import Loading from '../../components/Loading'
 
 export default function SinglePost() {
     const { postId } = useParams()
@@ -35,9 +36,7 @@ export default function SinglePost() {
 
     if (loading) {
         return (
-            <div>
-                Loading...
-            </div>
+            <Loading />
         )
     }
     return (

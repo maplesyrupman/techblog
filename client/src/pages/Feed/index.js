@@ -3,6 +3,7 @@ import SearchBar from '../../components/SearchBar'
 import { useQuery } from "@apollo/client"
 import { FEED_POSTS } from "../../utils/queries"
 import auth from "../../utils/auth"
+import Loading from "../../components/Loading"
 
 export default function Feed() {
     const { data, loading } = useQuery(FEED_POSTS, { variables: { followingIds: auth.getProfile().data.followingIds } })
@@ -10,7 +11,7 @@ export default function Feed() {
 
     if (loading) {
         return (
-            <div>Loading...</div>
+            <Loading />
         )
     } else {
         return (

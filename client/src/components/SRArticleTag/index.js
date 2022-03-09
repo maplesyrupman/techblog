@@ -1,12 +1,13 @@
 import PostThumnail from '../PostThumbnail'
 import { SEARCH_ARTICLE_TAG} from '../../utils/queries'
 import { useQuery } from '@apollo/client'
+import Loading from '../Loading'
 
 export default function SRArticleTag({queryString}) {
     const {data, loading} = useQuery(SEARCH_ARTICLE_TAG, {variables: {tag: queryString}})
 
     if (loading) {
-        return <div>Loading...</div>
+        return <Loading />
     }
     return (
         <>

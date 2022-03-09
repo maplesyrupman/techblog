@@ -2,6 +2,7 @@ import PostThumbnail from '../../components/PostThumbnail'
 import SearchBar from '../../components/SearchBar'
 import { QUERY_POSTS } from '../../utils/queries'
 import { useQuery } from '@apollo/client'
+import Loading from '../../components/Loading'
 
 export default function Home() {
     const { data, loading } = useQuery(QUERY_POSTS)
@@ -9,9 +10,7 @@ export default function Home() {
 
     if (loading) {
         return (
-            <div>
-                Loading...
-            </div>
+            <Loading />
         )
     }
 

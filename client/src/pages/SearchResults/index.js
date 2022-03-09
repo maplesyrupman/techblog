@@ -10,6 +10,11 @@ export default function SearchResults() {
     queryString = queryString.split('+').join(' ')
     const [searchBy, setSearchBy] = useState('Author')
 
+    const showingResultsFor =
+        searchBy === 'Author' ? `users with "${queryString}" in their name` :
+            searchBy === 'Title' ? `articles with "${queryString}" in their title` :
+                `articles with a "${queryString}" tag`
+
     function selectSearchBy(e) {
         setSearchBy(e.target.value)
     }
@@ -19,7 +24,7 @@ export default function SearchResults() {
             <div>
                 <SearchBar />
                 <div className="flex justify-center">
-                    <ul className="nav nav-tabs nav-justified flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 w-1/2" 
+                    <ul className="nav nav-tabs nav-justified flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 w-1/2"
                         id="tabs-tabJustify"
                         role="tablist"
                         onClick={selectSearchBy}
@@ -82,13 +87,16 @@ export default function SearchResults() {
                 </div>
             </div>
             <div className="p-4 border flex flex-col gap-4">
+                <div className="text-center">
+                    Showing results for {showingResultsFor}
+                </div>
                 {searchBy === 'Author' && (
                     <SRUser queryString={queryString} />
                 ) || searchBy === 'Title' && (
                     <SRArticleTitle queryString={queryString} />
                 ) || (
-                    <SRArticleTag queryString={queryString} />
-                )}
+                        <SRArticleTag queryString={queryString} />
+                    )}
 
             </div>
         </div>

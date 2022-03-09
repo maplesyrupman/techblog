@@ -1,12 +1,13 @@
 import UserTab from "../UserTab"
 import { SEARCH_USER } from "../../utils/queries"
 import { useQuery } from "@apollo/client"
+import Loading from "../Loading"
 
 export default function SRUser({ queryString }) {
     const { data, loading } = useQuery(SEARCH_USER, { variables: { username: queryString } })
 
     if (loading) {
-        return (<div>Loading...</div>)
+        return (<Loading />)
     }
     return (
         <>

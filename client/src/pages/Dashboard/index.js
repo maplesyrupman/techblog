@@ -8,6 +8,7 @@ import auth from "../../utils/auth"
 import { FaPen, FaCheck } from 'react-icons/fa'
 import ProfilePosts from "../../components/ProfilePosts"
 import UsersList from "../../components/UsersList"
+import Loading from '../../components/Loading'
 
 export default function UserPage() {
     const { userId } = useParams()
@@ -67,9 +68,7 @@ export default function UserPage() {
 
     if (loading) {
         return (
-            <div>
-                Loading...
-            </div>
+            <Loading />
         )
     }
 
