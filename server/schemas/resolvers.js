@@ -25,7 +25,16 @@ const resolvers = {
         },
 
         searchUser: async (parent, {username}) => {
-            return await User.find({username}) 
+            return await User.find({username: { $regex: `${username}`}}) 
+        },
+
+        searchArticleTitle: async (parent, {title}) => {
+            return await Post.find({title: { $regex: `${title}`}})
+        },
+
+        //complete later
+        searchArticleTag: async (parent, {tag}) => {
+            return await Tag.find({})
         }
     },
 

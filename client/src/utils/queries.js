@@ -110,9 +110,22 @@ export const SEARCH_USER = gql`
     }
 `
 
-export const SEARCH_ARTICLE = gql`
-    query posts {
-        posts {
+export const SEARCH_ARTICLE_TITLE = gql`
+    query searchArticleTitle($title: String!) {
+        searchArticleTitle(title: $title) {
+            _id
+            title
+            preamble
+            createdAt
+            author
+            authorId
+        }
+    }
+`
+
+export const Search_ARTICLE_TAG = gql`
+    query searchArticleTag($tag: String!) {
+        searchArticleTag(tag: $tag) {
             _id
             title
             preamble

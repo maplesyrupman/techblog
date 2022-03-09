@@ -48,7 +48,8 @@ const typeDefs = gql`
         posts: [Post]
         feedPosts(followingIds: [ID]!): [Post]
         searchUser(username: String!): [User]
-        searchArticle(title: String, tag: String): [Post]
+        searchArticleTitle(title: String!): [Post]
+        searchArticleTag(tag: String!): [Post]
     }
 
     type Mutation {
@@ -66,6 +67,5 @@ const typeDefs = gql`
         unfollow(followedId: ID!): User
     }
 `
-
 
 module.exports = typeDefs 

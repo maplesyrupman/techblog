@@ -3,13 +3,16 @@ import { useParams } from "react-router-dom"
 import { useState } from 'react'
 import UserTab from "../../components/UserTab"
 import { useQuery } from "@apollo/client"
-import { SEARCH_USER, SEARCH_ARTICLE } from "../../utils/queries"
+import { SEARCH_USER, SEARCH_ARTICLE_TITLE, Search_ARTICLE_TAG } from "../../utils/queries"
 
 export default function SearchResults() {
     let { queryString } = useParams()
     queryString = queryString.split('+').join(' ')
     const [searchBy, setSearchBy] = useState('Author')
-    const query = searchBy === 'Author' ? SEARCH_USER : SEARCH_ARTICLE
+    const query = searchBy === 'Author' ? 
+        SEARCH_USER : searchBy === 'Title' ?
+        SEARCH_ARTICLE_TITLE : Search_ARTICLE_TAG
+        
     const queryVariables = 
     searchBy === 'Author' ?
     {username: queryString} :
