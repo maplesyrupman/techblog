@@ -29,14 +29,13 @@ const resolvers = {
         },
 
         searchArticleTitle: async (parent, {title}) => {
-            console.log(title)
-
             return await Post.find({title: { $regex: `${title}`, $options: 'i'}})
         },
 
         //complete later
         searchArticleTag: async (parent, {tag}) => {
-            return await Tag.find({})
+            const articles = await Tag.find({tagName: { $regex: `^${tag}$`}}).populate('posts')
+            return articles[0].posts
         }
     },
 

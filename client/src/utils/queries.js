@@ -123,7 +123,7 @@ export const SEARCH_ARTICLE_TITLE = gql`
     }
 `
 
-export const Search_ARTICLE_TAG = gql`
+export const SEARCH_ARTICLE_TAG = gql`
     query searchArticleTag($tag: String!) {
         searchArticleTag(tag: $tag) {
             _id

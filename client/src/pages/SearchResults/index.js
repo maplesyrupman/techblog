@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useState } from 'react'
 import SRUser from "../../components/SRUser"
 import SRArticleTitle from "../../components/SRArticleTitle"
+import SRArticleTag from "../../components/SRArticleTag"
 
 export default function SearchResults() {
     let { queryString } = useParams()
@@ -85,6 +86,8 @@ export default function SearchResults() {
                     <SRUser queryString={queryString} />
                 ) || searchBy === 'Title' && (
                     <SRArticleTitle queryString={queryString} />
+                ) || (
+                    <SRArticleTag queryString={queryString} />
                 )}
 
             </div>

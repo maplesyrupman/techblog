@@ -3,14 +3,20 @@ import { SEARCH_USER } from "../../utils/queries"
 import { useQuery } from "@apollo/client"
 
 export default function SRUser({ queryString }) {
-    const {data, loading} = useQuery(SEARCH_USER, {variables: {username: queryString}})
+    const { data, loading } = useQuery(SEARCH_USER, { variables: { username: queryString } })
 
+    if (loading) {
+        return (<div>Loading...</div>)
+    }
     return (
         <>
-            {loading && <div>Loading...</div>}
-            {data && (
+            {data.searchUser.length && (
                 data.searchUser.map(user => <UserTab user={user} key={user._id} />)
-            )}
+            ) || (
+                    <div className="text-center">
+                        Sorry, we couldn't find anyone with the username "{queryString}"
+                    </div>
+                )}
         </>
     )
 }

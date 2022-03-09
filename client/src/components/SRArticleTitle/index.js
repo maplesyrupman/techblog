@@ -5,11 +5,17 @@ import { useQuery } from '@apollo/client'
 export default function SRArticleTitle({queryString}) {
     const {data, loading} = useQuery(SEARCH_ARTICLE_TITLE, {variables: {title: queryString}})
 
+    if (loading) {
+        return <div>Loading...</div>
+    }
     return (
         <>
-            {loading && <div>Loading...</div>}
-            {data && (
-                data.searchArticleTitle.map(post => <PostThumnail postData={post} />)
+            {data.searchArticleTitle.length && (
+                data.searchArticleTitle.map(post => <PostThumnail postData={post} key={post._id} />)
+            ) || (
+                <div className='text-center'>
+                    Sorry, we couldn't find any articles with "{queryString}" in their title
+                </div>
             )}
         </>
     )
