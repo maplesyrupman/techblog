@@ -1,26 +1,13 @@
 import SearchBar from "../../components/SearchBar"
 import { useParams } from "react-router-dom"
 import { useState } from 'react'
-import UserTab from "../../components/UserTab"
-import { useQuery } from "@apollo/client"
-import { SEARCH_USER, SEARCH_ARTICLE_TITLE, Search_ARTICLE_TAG } from "../../utils/queries"
+import SRUser from "../../components/SRUser"
+import SRArticleTitle from "../../components/SRArticleTitle"
 
 export default function SearchResults() {
     let { queryString } = useParams()
     queryString = queryString.split('+').join(' ')
     const [searchBy, setSearchBy] = useState('Author')
-    const query = searchBy === 'Author' ? 
-        SEARCH_USER : searchBy === 'Title' ?
-        SEARCH_ARTICLE_TITLE : Search_ARTICLE_TAG
-        
-    const queryVariables = 
-    searchBy === 'Author' ?
-    {username: queryString} :
-    searchBy === 'Title' ?
-    {title: queryString} :
-    {tag: queryString}
-
-    const {data, loading} = useQuery(query, {variables: queryVariables})
 
     function selectSearchBy(e) {
         setSearchBy(e.target.value)
@@ -93,10 +80,11 @@ export default function SearchResults() {
                     </ul>
                 </div>
             </div>
-            <div className="p-4 border">
-                {loading && <div>Loading...</div>}
-                {data && (
-                    data.searchUser.map(user => <UserTab user={user} key={user._id}/>)
+            <div className="p-4 border flex flex-col gap-4">
+                {searchBy === 'Author' && (
+                    <SRUser queryString={queryString} />
+                ) || searchBy === 'Title' && (
+                    <SRArticleTitle queryString={queryString} />
                 )}
 
             </div>

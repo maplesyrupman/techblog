@@ -29,7 +29,9 @@ const resolvers = {
         },
 
         searchArticleTitle: async (parent, {title}) => {
-            return await Post.find({title: { $regex: `${title}`}})
+            console.log(title)
+
+            return await Post.find({title: { $regex: `${title}`, $options: 'i'}})
         },
 
         //complete later
